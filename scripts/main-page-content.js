@@ -154,23 +154,24 @@ function register() {
         password : $('#registerPassword').val()
     };
     // alert('IN LOGIN');
-    $.ajax({
-        method: "POST",
-        url:kinveyServiceBaseUrl + 'user/' + kinveyAppID + '/',
-        data:registerData,
-        headers: {
-            "Authorization": "Basic " + btoa(kinveyAppID + ":" + kinveyAppSecret)
-        },
-        success: registerSuccess,
-        error: showAJAXError
-    });
+   firebase.auth().createUserWithEmailAndPassword(registerData.username, registerData.password) 
+       .then((userCredential) => { 
+           const user = userCredential.user; 
+           
+           // Firebase doesn't use authtoken the same way Kinvey did, 
+           // but you can store the ID token if you need it later. 
+           user.getIdToken().then((token) => { 
+               sessionStorage.authToken = token; 
+           }); 
+           registerSuccess(user); 
+       }) 
+       .catch((error) => { 
+           showAJAXError(error); 
+       });
 
     function registerSuccess(data, status) {
-
-        sessionStorage.authToken = data._kmd.authtoken;
         showListPostsView();
         showHideNavLinks();
-
         showInfo('Register completed successfully.');
     }
 }

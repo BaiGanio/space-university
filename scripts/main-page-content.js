@@ -2,9 +2,11 @@
  * Created by Republic Of Gamers on 7/17/2016.
  */
 
-const kinveyAppID = 'kid_rJXGMWdD';
-const kinveyAppSecret = '5a27b3abc82449b2aabb58126e3899d8';
-const kinveyServiceBaseUrl = 'https://baas.kinvey.com/';
+const firebaseConfig = { 
+    apiKey: "YOUR_PUBLIC_API_KEY", 
+    authDomain: "YOUR_PROJECT.firebaseapp.com", 
+    projectId: "YOUR_PROJECT_ID" 
+};
 
 /* This function is loaded every time we refresh the page */
 $(function () {
@@ -121,23 +123,23 @@ function login() {
         password : $('#loginPassword').val()
     };
     // alert('IN LOGIN');
-    $.ajax({
-        method: "POST",
-        url:kinveyServiceBaseUrl + 'user/' + kinveyAppID + '/login',
-        data:loginData,
-        headers: {
-            "Authorization": "Basic " + btoa(kinveyAppID + ":" + kinveyAppSecret)
-        },
-        success: loginSuccess,
-        error: showAJAXError
-    });
+   firebase.auth().signInWithEmailAndPassword(loginData.username, loginData.password) 
+       .then((userCredential) => { 
+           const user = userCredential.user; 
+           
+           // mimic your old Kinvey session behavior 
+           sessionStorage.username = user.email; 
+           sessionStorage.authToken = user.accessToken || ""; // Firebase doesn't use authtoken the same way 
+           
+           loginSuccess(user); // call your existing success handler 
+       }) 
+       .catch((error) => { 
+           showAJAXError(error); // call your existing error handler 
+       });
 
     function loginSuccess(data, status) {
-        sessionStorage.username = data.username;
-        sessionStorage.authToken = data._kmd.authtoken;
         showListPostsView();
         showHideNavLinks();
-
         showInfo('Login successful');
     }
 }

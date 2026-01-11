@@ -14,6 +14,9 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+// Global references 
+const auth = firebase.auth(); 
+const db = firebase.firestore();
 
 
 /* This function is loaded every time we refresh the page */
@@ -27,6 +30,7 @@ $(function () {
     $('#linkLogout').click(logout);
     $('#linkJSONviaAJAX').click(showAJAXviaJSONView);
     $('#linkFoodCost').click(showFoodCostView);
+    $('#linkCreateArticle').click(showCreateArticleView);
 
 
     /* Note that by default HTML forms submit their data as HTTP GET request.
@@ -41,7 +45,7 @@ $(function () {
     });
     $('#registerForm').submit(function (e) {
         e.preventDefault();
-        register();
+        registerUser();
     });
     $('#createPostForm').submit(function (e) {
         e.preventDefault();
@@ -49,7 +53,7 @@ $(function () {
     });
 
     $('#loginButton').click(login);
-    $('#registerButton').click(register);
+    $('#registerButton').click(registerUser);
     $('#createPostButton').click(createPost);
     $('#listPosts').click(listPosts);
 
@@ -101,6 +105,7 @@ function showHideNavLinks() {
         $('#linkLogout').show();
         $('#linkJSONviaAJAX').show();
         $('#linkFoodCost').show();
+        $('#linkCreateArticle').show();
     }else{
         /* if user is not logged */
         $('#linkLogin').show();
@@ -110,6 +115,7 @@ function showHideNavLinks() {
         $('#linkCreatePost').hide();
         $('#linkLogout').hide();
         $('#linkJSONviaAJAX').hide();
+        $('#linkCreateArticle').show();
     }
 };
 
@@ -137,7 +143,9 @@ function showRegisterView() {
 function showFoodCostView() {
     showView('viewFoodCost');
 }
-
+function showCreateArticleView() {
+    showView('viewCreateArticle');
+}
 function showCreatePostView() {
     showView('viewCreatePost');
 }
@@ -146,20 +154,21 @@ function showAJAXviaJSONView() {
     showView('json-via-ajax');
 }
 
+/* START OF LOGIN VIEW */
 function login() {
     let loginData = {
-        username : $('#loginUsername').val(),
+        email : $('#loginEmail').val(),
         password : $('#loginPassword').val()
     };
     // alert('IN LOGIN');
-   firebase.auth().signInWithEmailAndPassword(loginData.username, loginData.password) 
+   firebase.auth().signInWithEmailAndPassword(loginData.email, loginData.password) 
        .then((userCredential) => { 
            const user = userCredential.user; 
            
            // mimic your old Kinvey session behavior 
            sessionStorage.username = user.email; 
            sessionStorage.authToken = user.accessToken || ""; // Firebase doesn't use authtoken the same way 
-           
+           console.log(user);
            loginSuccess(user); // call your existing success handler 
        }) 
        .catch((error) => { 
@@ -172,14 +181,36 @@ function login() {
         showInfo('Login successful');
     }
 }
+/* END OF LOGIN VIEW */
 
-function register() {
+/* START OF REGISTRATION VIEW */
+const emailInput = document.getElementById('email'); 
+const passInput = document.getElementById('password'); 
+const termsCheck = document.getElementById('terms'); 
+const registerBtn = document.getElementById('registerBtn'); 
+
+function updateRegisterButton() { 
+    const ready = emailInput.value.trim() !== "" && passInput.value.trim() !== "" && terms.checked; 
+    if (ready) { 
+        registerBtn.disabled = false; 
+        registerBtn.classList.remove('btn-primary'); 
+        registerBtn.classList.add('btn-success'); 
+    } else { 
+        registerBtn.disabled = true; 
+        registerBtn.classList.remove('btn-success'); 
+        registerBtn.classList.add('btn-primary'); 
+    } 
+} 
+emailInput.addEventListener('input', updateRegisterButton); 
+passInput.addEventListener('input', updateRegisterButton); 
+termsCheck.addEventListener('change', updateRegisterButton);
+
+
+function registerUser() {
     let registerData = {
-        username : $('#registerUsername').val(),
-        password : $('#registerPassword').val()
+        username : $('#email').val(),
+        password : $('#password').val()
     };
-    // alert('IN LOGIN');
-
 
    firebase.auth().createUserWithEmailAndPassword(registerData.username, registerData.password) 
        .then((userCredential) => { 
@@ -197,11 +228,40 @@ function register() {
        });
 
     function registerSuccess(data, status) {
-        showListPostsView();
+       // showListPostsView();
         showHideNavLinks();
         showInfo('Register completed successfully.');
     }
 }
+/* END OF REGISTRATION VIEW */
+
+/* START OF SAVE ARTICLE VIEW */
+function saveArticle() {
+    const title = document.getElementById("articleTitle").value.trim();
+    const content = document.getElementById("articleContent").value.trim();
+
+    if (!title || !content) {
+        alert("Please fill in both fields.");
+        return;
+    }
+
+    const user = auth.currentUser;
+
+    db.collection("Articles").add({
+        title: title,
+        content: content,
+        author: user ? user.uid : "anonymous"
+    })
+    .then(() => {
+        console.log("Article saved!");
+        document.getElementById("articleForm").reset();
+    })
+    .catch(err => {
+        console.log("Error saving article:", err);
+        console.log("Error saving article.");
+    });
+}
+/* END OF SAVE ARTICLE VIEW */
 
 function createPost() {
     let postUrl = kinveyServiceBaseUrl + 'appdata/' + kinveyAppID + '/posts';

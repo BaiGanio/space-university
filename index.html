@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
+   
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/side-navigation.css">
@@ -84,8 +84,8 @@
                             <hr>
                         </a>
                         <hr>
-                        <a href="#" id="linkCreatePost" class="single-menu-element-link">
-                            Create post
+                        <a href="#" id="linkCreateArticle" class="single-menu-element-link">
+                            Create Article
                         </a>
                         <div id="food-cost" class="alsandra">
                             <a href="#" id="linkFoodCost" class="single-menu-element-link">
@@ -164,110 +164,95 @@
 
                 <!-- START LOGIN CONTENT -->
                 <section id="viewLogin">
-                    <br>
-                    <h1 class="theMonkiesAteMySoul" style="color: #c0a16b"><b>Login</b></h1>
+                    <h1 class="alsandra" style="font-size: 3.8rem;"><b>Login</b></h1>
                     <hr />
-                    <h3 class="qtar" style="font-size: 2.5em">
-                        Just type:
-                        <br>
-                        <span style="color: red">jo</span> for user
-                        <br>
-                        &
-                        <br>
-                        <span style="color: red">1</span> for pass
-                        <br>
-                        :)
-                    </h3>
-                    <br>
-                    <!-- START FORM -->
-                    <div class="login-form-1">
-                        <!-- START: register-form -->
-                        <div id="login-form" class="text-left">
-                            <div class="main-login-form">
-                                <form  id="loginForm">
-                                    <div class="login-group">
-                                        <!--Username-->
-                                        <div class="form-group">
-                                            <input type="text" id="loginUsername" placeholder="Username" required="true">
-                                        </div>
-                                        <!--Password-->
-                                        <div class="form-group">
-                                            <input type="password" id="loginPassword" placeholder="Password" required="true">
-                                        </div>
-                                        <!--Button GO-->
-                                        <div class="form-group">
-                                            <input type="submit" class="login-button" value="GO" />
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- END: register-form -->
-                    </div>
-                    <!-- END FORM -->
+                    <div class="alsandra container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+                        <div class="p-4 shadow-lg" style="max-width: 480px; width: 100%; font-size: 1.75rem; font-weight: 600;">
 
+                            <form id="loginForm" onsubmit="event.preventDefault(); login();">
+
+                                <div class="mb-4">
+                                    <label for="loginEmail" class="form-label" style="font-size: 2rem;">Email</label>
+                                    <input type="email"
+                                        class="form-control form-control-lg annie-use-your-telescope-regular"
+                                        id="loginEmail"
+                                        placeholder="your@email.com"
+                                        required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="loginPassword" class="form-label" style="font-size: 2rem;">Password</label>
+                                    <input type="password"
+                                        class="form-control form-control-lg annie-use-your-telescope-regular"
+                                        id="loginPassword"
+                                        placeholder="••••••••"
+                                        required>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    id="loginBtn"
+                                    class="btn btn-primary w-100 py-3"
+                                    style="font-size: 2rem; font-weight: 700;">
+                                    Go
+                                </button>
+
+                            </form>
+
+                        </div>
+                    </div>
                 </section>
-                <!-- END LOGIN CONTENT -->
+                <!-- END LOGIN CONTENT -->               
 
                 <!-- START REGISTRATION CONTENT -->
-                <section id="viewRegister" style="text-align: center;">
-                    <h1 class="theMonkiesAteMySoul" style="color: #c0a16b"><b>Register</b></h1>
+                <section id="viewRegister">
+                    <h1 class="alsandra" style="font-size: 3.8rem;"><b>Register</b></h1>
                     <hr />
-                    <h3 class="qtar" style="font-size: 2.5em">
-                        Just type something stupid:
-                        <br>
-                        <span style="color: red">john</span> for user
-                        <br>
-                        &
-                        <br>
-                        <span style="color: red">rambo</span> for pass
-                        <br>
-                        If error occur - the user may be preserved.
-                        <br>
-                        There is a free user in the login section.
-                        <br>
-                        :)
-                    </h3>
-                    <!-- START FORM -->
-                    <div class="login-form-1">
-                        <!-- START: register-form -->
-                        <div id="register-form" class="text-left">
-                            <div class="main-login-form">
-                                <form action="POST" id="registerForm">
-                                    <div class="login-group">
-                                        <!--Username-->
-                                        <div class="form-group">
-                                            <input type="text" id="registerUsername" placeholder="Username"  required="true">
-                                        </div>
-                                        <!--Email-->
-                                        <!--<div class="form-group">-->
-                                            <!--<input type="email" id="registerEmail" placeholder="Email">-->
-                                        <!--</div>-->
-                                        <!--Password-->
-                                        <div class="form-group">
-                                            <input type="password" id="registerPassword" placeholder="Password"  required="true">
-                                        </div>
-                                        <!--Confirm Password-->
-                                        <!--<div class="form-group">-->
-                                            <!--<input type="password" id="registerConfirmPassword" placeholder="Confirm Password">-->
-                                        <!--</div>-->
+                    <div class="alsandra container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+                        <div class="p-4 shadow-lg" style="max-width: 480px; width: 100%; font-size: 1.75rem; font-weight: 600;">
+                            <form id="registerForm" onsubmit="event.preventDefault(); registerUser();">
+                                <div class="mb-4">
+                                    <label for="email" class="form-label" style="font-size: 2rem;">Email</label>
+                                    <input type="email"
+                                        class="form-control form-control-lg annie-use-your-telescope-regular"
+                                        id="email"
+                                        placeholder="your@email.com"
+                                        required>
+                                </div>
 
-                                        <!--Button GO-->
-                                        <div class="form-group">
-                                            <input type="submit" class="login-button" value="GO" />
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                                <div class="mb-4">
+                                    <label for="password" class="form-label" style="font-size: 2rem;">Password</label>
+                                    <input type="password"
+                                        class="form-control form-control-lg annie-use-your-telescope-regular"
+                                        id="password"
+                                        placeholder="••••••••"
+                                        required>
+                                </div>
+
+                                <div class="form-check mb-4 d-flex align-items-center" style="gap: 10px;">
+                                    <input type="checkbox"
+                                        class="form-check-input"
+                                        id="terms"
+                                        style="transform: scale(1.2); margin: 0;">
+
+                                    <label class="form-check-label fw-bold"
+                                        for="terms"
+                                        style="font-size: 1.2rem;">
+                                        I agree to the <a href="#" class="text-info fw-bold">Terms of Use</a>
+                                    </label>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    id="registerBtn"
+                                    class="btn btn-primary w-100 py-3"
+                                    style="font-size: 2rem; font-weight: 700;"
+                                    disabled>
+                                    Go
+                                </button>
+                            </form>
                         </div>
-                        <!-- END: register-form -->
                     </div>
-                    <!-- END FORM -->
-                    <br>
-                    <br>
-                    <h3 class="qtar" style="color: red;">
-                        Keep in mind that <br> there is no need for serious data.
-                    </h3>
                 </section>
                 <!-- END REGISTRATION CONTENT -->
 
@@ -367,6 +352,60 @@
                 </section>
                 <!-- END JSON VIA AJAX CONTENT -->
 
+                <!-- START CREATE ARTICLE CONTENT -->
+                <section id="viewCreateArticle">
+                    <h1 class="alsandra" style="font-size: 3.8rem;"><b>Create Article</b></h1>
+                    <hr />
+
+                    <div class="alsandra container d-flex justify-content-center align-items-start" style="min-height: 70vh;">
+                        <div class="p-4 shadow-lg"
+                            style="max-width: 900px; width: 100%; font-size: 1.75rem; font-weight: 600;">
+
+                            <form id="articleForm" onsubmit="event.preventDefault(); saveArticle();">
+
+                                <div class="mb-4">
+                                    <label for="articleTitle" class="form-label" style="font-size: 2rem;">Title</label>
+                                    <input type="text"
+                                        class="form-control form-control-lg annie-use-your-telescope-regular"
+                                        id="articleTitle"
+                                        placeholder="Enter article title"
+                                        required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="articleContent" class="form-label" style="font-size: 2rem;">Content</label>
+                                    <textarea id="articleContent"
+                                            class="form-control annie-use-your-telescope-regular"
+                                            style="
+                                                height: 350px;
+                                                font-size: 1.6rem;
+                                                padding: 15px;
+                                                border-radius: 12px;
+                                                resize: vertical;
+                                            "
+                                            placeholder="Write your article here..."
+                                            required></textarea>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    id="saveArticleBtn"
+                                    class="btn btn-primary w-100 py-3"
+                                    style="font-size: 2rem; font-weight: 700;">
+                                    Publish
+                                </button>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </section>
+                <!-- END CREATE ARTICLE CONTENT -->
+
+
+
+
+                
                 <!-- START FOOD COST CONTENT -->
                <section id="viewFoodCost"> 
                     <div class="row g-5 d-flex justify-content-center mt-5 alsandra">
@@ -474,7 +513,8 @@
     <script src="scripts/side-navigation.js"></script>
     <script src="scripts/modal-images.js"></script>
     <script src="scripts/main-page-content.js"></script>
-    <script src="scripts/food-cost.js"></script>
+    <script src="scripts/food-cost.js"></script>  
+    
 
 </body>
 </html>

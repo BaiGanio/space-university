@@ -33,11 +33,11 @@
 #main-page-content > section{
     display: none;
 }
-#linkListPosts{
+#linkListPosts, #linkFoodCost{
     text-decoration: none;
     color: #c0a16b;
 }
-#linkListPosts:hover{
+#linkListPosts:hover, #linkFoodCost:hover{
     color: #2e6da4;
     transition: background 0.7s ease;
 }

@@ -7,21 +7,21 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     
     <title>Space University</title>
-
-    <script src="scripts/jquery-2.2.4.min.js"></script> 
     
-    <!-- Bootstrap -->
-    <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="styles/default-fonts.css">
-   
-    <script src="scripts/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/side-navigation.css">
     <link rel="stylesheet" href="styles/aside-navigation-menu.css">
     <link rel="stylesheet" href="styles/main-page-content.css">
-    <link rel="stylesheet" href="styles/login-register.css">
+    <!-- <link rel="stylesheet" href="styles/login-register.css"> -->
     <link rel="stylesheet" href="styles/footer-holder.css">
     <link rel="stylesheet" href="styles/viewHome.css">
     <link rel="stylesheet" href="styles/view-create-posts.css">
@@ -68,7 +68,6 @@
                         </a>
                     </div>
                     <hr>
-                    <br>
                     <nav class="page-navigation guildof">
                         <a href="#" id="linkHome" class="single-menu-element-link">
                             Home
@@ -79,17 +78,24 @@
                         <a href="#" id="linkRegister" class="single-menu-element-link">
                             Register
                         </a>
-                        <a href="#" id="linkCreatePost" class="single-menu-element-link">
-                            Create post
-                        </a>
                         <a href="#" id="linkLogout" class="single-menu-element-link">
                             Logout
                             <br>
                             <hr>
                         </a>
+                        <hr>
+                        <a href="#" id="linkCreatePost" class="single-menu-element-link">
+                            Create post
+                        </a>
+                        <div id="food-cost" class="alsandra">
+                            <a href="#" id="linkFoodCost" class="single-menu-element-link">
+                                <h1>food cost</h1>
+                            </a>
+                            <hr>
+                        </div>
                         <div id="recent-posts" class="alsandra">
                             <a href="#" id="linkListPosts" class="single-menu-element-link">
-                                <h1>Recent posts</h1>
+                                <h1>galaxies</h1>
                             </a>
                             <hr>
                             <div id="post-title"></div>
@@ -361,6 +367,56 @@
                 </section>
                 <!-- END JSON VIA AJAX CONTENT -->
 
+                <!-- START FOOD COST CONTENT -->
+               <section id="viewFoodCost"> 
+                    <div class="row g-5 d-flex justify-content-center mt-5 alsandra">
+                      
+                        <!-- LEFT SIDE: FORM --> 
+                         <div class="col-lg-5"> 
+                            <div class="card shadow-sm p-4" style="max-width: 480px; width: 100%; font-size: 1.75rem; font-weight: 600;"> 
+                                <h3 class="mb-4 text-center" style="font-weight: 700; font-size: 2rem;"> Food Cost Calculator </h3> 
+                                <form onsubmit="event.preventDefault(); calculate();"> 
+                                    <div class="mb-4"> 
+                                        <label for="inputYears" class="form-label" style="font-size: 2rem;">Years</label> 
+                                        <input type="number" class="form-control form-control-lg annie-use-your-telescope-regular" id="inputYears" placeholder="(e.g. 40)"> 
+                                    </div> 
+                                    <div class="mb-4"> 
+                                        <label for="inputWeight" class="form-label" style="font-size: 2rem;">Weight (kg)</label> <input type="number" class="form-control form-control-lg annie-use-your-telescope-regular" id="inputWeight" placeholder="(e.g. 90)"> 
+
+                                    </div> 
+                                    <div class="mb-4 form-check"> 
+                                        <input type="checkbox" class="form-check-input" id="generateChartCheck" style="transform: scale(1.3);"> 
+                                        <label class="form-check-label ms-2" for="generateChartCheck" style="font-size: 2rem;"> Generate chart 
+                                        </label> 
+                                    </div> 
+                                    <button 
+                                        type="submit" 
+                                        id="calculateBtn"
+                                        class="btn btn-primary w-100 py-3" 
+                                        style="font-size: 2rem; font-weight: 700;"
+                                        disabled> Calculate 
+
+                                    </button> 
+                                </form> 
+                            </div> 
+                        </div> 
+                         <!-- RIGHT SIDE: OUTPUT --> 
+                          <div class="col-lg-7"> 
+                            <div class="alsandra card shadow-sm p-4" style="font-size: 1.75rem; font-weight: 600;"> 
+                                   <h3 class="mb-4 text-center" style="font-weight: 700; font-size: 2rem;"> The Bill: </h3> 
+                                <div id="output" class="eb-garamond" style="text-align: left;"> 
+                                    <em class="alsandra">Your results will appear here...</em> 
+                                </div> 
+                            </div> 
+                        </div>
+                        <canvas id="energyChart" width="400" height="200"></canvas>
+                        <canvas id="costChart" width="400" height="200"></canvas>
+                    </div>
+                </section>
+                <!-- END FOOD COST CONTENT -->
+
+
+
             </div>
             <!-- MAIN PAGE CONTENT -->
         </div>
@@ -404,25 +460,21 @@
 
     </div>
     <!-- End The Modal For Images -->
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+     
 
     <!--============================== REQUIRED 3rd PARTY SCRIPTS =================================-->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
-
-
-
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!--============================== CUSTOM SCRIPTS =================================-->
     <script src="scripts/index.js"></script>
     <script src="scripts/side-navigation.js"></script>
     <script src="scripts/modal-images.js"></script>
     <script src="scripts/main-page-content.js"></script>
+    <script src="scripts/food-cost.js"></script>
 
 </body>
 </html>

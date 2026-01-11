@@ -26,6 +26,7 @@ $(function () {
     $('#linkCreatePost').click(showCreatePostView);
     $('#linkLogout').click(logout);
     $('#linkJSONviaAJAX').click(showAJAXviaJSONView);
+    $('#linkFoodCost').click(showFoodCostView);
 
 
     /* Note that by default HTML forms submit their data as HTTP GET request.
@@ -99,11 +100,14 @@ function showHideNavLinks() {
         $('#linkListPosts').show();
         $('#linkLogout').show();
         $('#linkJSONviaAJAX').show();
+        $('#linkFoodCost').show();
     }else{
+        /* if user is not logged */
         $('#linkLogin').show();
         $('#linkRegister').show();
-        $('#linkCreatePost').hide();
         $('#linkListPosts').show();
+        $('#linkFoodCost').show();
+        $('#linkCreatePost').hide();
         $('#linkLogout').hide();
         $('#linkJSONviaAJAX').hide();
     }
@@ -123,6 +127,23 @@ function showHomeView() {
 
 function showLoginView() {
     showView('viewLogin');
+}
+
+function showRegisterView() {
+    showView('viewRegister');
+}
+
+
+function showFoodCostView() {
+    showView('viewFoodCost');
+}
+
+function showCreatePostView() {
+    showView('viewCreatePost');
+}
+
+function showAJAXviaJSONView() {
+    showView('json-via-ajax');
 }
 
 function login() {
@@ -150,10 +171,6 @@ function login() {
         showHideNavLinks();
         showInfo('Login successful');
     }
-}
-
-function showRegisterView() {
-    showView('viewRegister');
 }
 
 function register() {
@@ -184,10 +201,6 @@ function register() {
         showHideNavLinks();
         showInfo('Register completed successfully.');
     }
-}
-
-function showCreatePostView() {
-    showView('viewCreatePost');
 }
 
 function createPost() {
@@ -268,10 +281,6 @@ function showListPostsView() {
 
         showInfo('Posts loaded.');
     }
-}
-
-function showAJAXviaJSONView() {
-    showView('json-via-ajax');
 }
 
 function listPosts() {

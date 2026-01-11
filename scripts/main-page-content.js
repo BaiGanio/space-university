@@ -2,11 +2,19 @@
  * Created by Republic Of Gamers on 7/17/2016.
  */
 
-const firebaseConfig = { 
-    apiKey: "YOUR_PUBLIC_API_KEY", 
-    authDomain: "YOUR_PROJECT.firebaseapp.com", 
-    projectId: "YOUR_PROJECT_ID" 
+const firebaseConfig = {
+  apiKey: "AIzaSyA9oZaSIeUKeFJw-hieB3kN4b-J4xnSd_I",
+  authDomain: "space-university-d04e9.firebaseapp.com",
+  databaseURL: "https://space-university-d04e9-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "space-university-d04e9",
+  storageBucket: "space-university-d04e9.firebasestorage.app",
+  messagingSenderId: "623940058530",
+  appId: "1:623940058530:web:70fe0e7ed1c8df0ca706fb",
+  measurementId: "G-JK7DJ4KF82"
 };
+
+firebase.initializeApp(firebaseConfig);
+
 
 /* This function is loaded every time we refresh the page */
 $(function () {
@@ -154,10 +162,12 @@ function register() {
         password : $('#registerPassword').val()
     };
     // alert('IN LOGIN');
+
+
    firebase.auth().createUserWithEmailAndPassword(registerData.username, registerData.password) 
        .then((userCredential) => { 
            const user = userCredential.user; 
-           
+           console.log(user);
            // Firebase doesn't use authtoken the same way Kinvey did, 
            // but you can store the ID token if you need it later. 
            user.getIdToken().then((token) => { 

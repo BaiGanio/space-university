@@ -16,6 +16,16 @@ body{
 }
 
 
+.requires-auth {
+  display: none;
+}
+
+body.logged-in .requires-auth {
+  display: block;
+}
+
+
+
 #status {
     /*width: 100%;*/
     height: 800px;

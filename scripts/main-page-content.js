@@ -2,21 +2,7 @@
  * Created by Republic Of Gamers on 7/17/2016.
  */
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA9oZaSIeUKeFJw-hieB3kN4b-J4xnSd_I",
-  authDomain: "space-university-d04e9.firebaseapp.com",
-  databaseURL: "https://space-university-d04e9-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "space-university-d04e9",
-  storageBucket: "space-university-d04e9.firebasestorage.app",
-  messagingSenderId: "623940058530",
-  appId: "1:623940058530:web:70fe0e7ed1c8df0ca706fb",
-  measurementId: "G-JK7DJ4KF82"
-};
 
-firebase.initializeApp(firebaseConfig);
-// Global references 
-const auth = firebase.auth(); 
-const db = firebase.firestore();
 
 
 /* This function is loaded every time we refresh the page */
@@ -31,8 +17,8 @@ $(function () {
     $('#linkJSONviaAJAX').click(showAJAXviaJSONView);
     $('#linkFoodCost').click(showFoodCostView);
     $('#linkCreateArticle').click(showCreateArticleView);
-
-
+    $('#linkAddGalaxy').click(showAddGalaxyView);
+    $('#linkListGalaxies').click(showListGalaxiesView);
     /* Note that by default HTML forms submit their data as HTTP GET request.
      You should prevent this default action and replace it with JavaScript code.
      Use e.preventDefault() as shown above.
@@ -105,7 +91,7 @@ function showHideNavLinks() {
         $('#linkLogout').show();
         $('#linkJSONviaAJAX').show();
         $('#linkFoodCost').show();
-        $('#linkCreateArticle').show();
+        $('#linkListGalaxies').show();
     }else{
         /* if user is not logged */
         $('#linkLogin').show();
@@ -115,7 +101,7 @@ function showHideNavLinks() {
         $('#linkCreatePost').hide();
         $('#linkLogout').hide();
         $('#linkJSONviaAJAX').hide();
-        $('#linkCreateArticle').show();
+        $('#linkListGalaxies').show();
     }
 };
 
@@ -142,6 +128,12 @@ function showRegisterView() {
 
 function showFoodCostView() {
     showView('viewFoodCost');
+}
+function showAddGalaxyView() {
+    showView('viewAddGalaxy');
+}
+function showListGalaxiesView() {
+    showView('viewListGalaxies');
 }
 function showCreateArticleView() {
     showView('viewCreateArticle');

@@ -99,3 +99,13 @@ function startAppLogic() {
     }
 
 }
+// function attachModalHandlers() { let triggers = document.querySelectorAll('.modal-trigger'); triggers.forEach(img => { img.onclick = function () { modal.style.display = "block"; modalImg.src = this.src; modalImg.alt = this.alt; captionText.innerHTML = this.alt; }; }); }
+
+// document.addEventListener("click", function(e) { 
+//   if (e.target.classList.contains("modal-trigger")) { 
+//     const imgSrc = e.target.getAttribute("data-img"); 
+//     const caption = e.target.getAttribute("data-caption") || "";
+//     modal.style.display = "block"; 
+//     modalImg.src = imgSrc; modalImg.alt = caption; captionText.innerHTML = caption; 
+//   } 
+// });

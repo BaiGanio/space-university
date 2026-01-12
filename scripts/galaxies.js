@@ -59,35 +59,21 @@ function renderGalaxyCard(id, g) {
   const container = document.getElementById("galaxyList");
 
   const card = document.createElement("div");
-  card.className = "col-md-4";
-
-  card.innerHTML = `
-    <div class="card shadow-lg border-0 rounded-4 overflow-hidden galaxy-card">
-
-      <div class="position-relative p-2 bg-dark">
-        <img 
-          src="${g.nasaImageUrl || 'images/satellite.png'}" 
-          class="img-fluid rounded-4 border border-3 border-secondary shadow-lg"
-          style="height: 220px; width: 100%; object-fit: cover;">
-
-        <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-2 fs-6 px-3 py-2">
-          ⭐ ${g.likes || 0}
-        </span>
-      </div>
-
-      <div class="card-body">
-        <h4 class="card-title fw-bold">${g.name}</h4>
-        <p class="text-secondary mb-1">${g.type || "Unknown type"}</p>
-        <p class="text-muted small">${g.catalogId || ""}</p>
-
-        ${
-          auth.currentUser
-            ? `<button class="btn btn-primary w-100 fw-bold" onclick="likeGalaxy('${id}')">❤️ Like</button>`
-            : `<button class="btn btn-secondary w-100 fw-bold" disabled>Login to Like</button>`
-        }
-      </div>
-    </div>
-  `;
+  card.className = "col-md-4 g-3";
+  card.innerHTML = ` 
+    <div class="card"> 
+      <div class="card-image"> 
+        <img src="${g.nasaImageUrl || 'images/satellite.png'}" class="img-fluid border border-3 border-secondary shadow-lg modal-trigger" data-img="${g.nasaImageUrl}" data-caption="${g.name}" style="height: 340px; width: 100%; object-fit: cover; cursor: pointer;"> 
+       <a class="card-action" href="#" disabled onclick="likeGalaxy('${id}')"><i class="fa fa-star"> ${g.likes || 0} </i></a>
+      <div class="card-body"> 
+        <div class="card-heading">${g.name}</div> 
+        <hr/>
+        <div class="card-text">${g.type || "Unknown type"}</div> 
+        <div class="card-text">${g.catalogId || ""}</div> 
+  
+        <button data-img="${g.nasaImageUrl}" data-caption="${g.description}" class="btn btn-primary modal-trigger"> more... </button> 
+      </div> 
+    </div> `;
 
   container.appendChild(card);
 }
@@ -133,14 +119,6 @@ function searchGalaxies() {
     });
 }
 
-const searchInput = document.getElementById("searchInput");
 
-searchInput.addEventListener("input", () => {
-  if (searchInput.value.trim().length > 0) {
-    searchInput.classList.add("typing");
-  } else {
-    searchInput.classList.remove("typing");
-  }
-});
 
 

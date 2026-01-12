@@ -88,10 +88,11 @@ function showHideNavLinks() {
         $('#linkRegister').hide();
         $('#linkCreatePost').show();
         $('#linkListPosts').show();
-        $('#linkLogout').show();
+        // $('#linkLogout').show();
         $('#linkJSONviaAJAX').show();
         $('#linkFoodCost').show();
         $('#linkListGalaxies').show();
+        //  $('#linkAddGalaxy').show();
     }else{
         /* if user is not logged */
         $('#linkLogin').show();
@@ -99,7 +100,8 @@ function showHideNavLinks() {
         $('#linkListPosts').show();
         $('#linkFoodCost').show();
         $('#linkCreatePost').hide();
-        $('#linkLogout').hide();
+        // $('#linkLogout').hide();
+        // $('#linkAddGalaxy').hide();
         $('#linkJSONviaAJAX').hide();
         $('#linkListGalaxies').show();
     }
@@ -145,87 +147,6 @@ function showCreatePostView() {
 function showAJAXviaJSONView() {
     showView('json-via-ajax');
 }
-
-/* START OF LOGIN VIEW */
-function login() {
-    let loginData = {
-        email : $('#loginEmail').val(),
-        password : $('#loginPassword').val()
-    };
-    // alert('IN LOGIN');
-   firebase.auth().signInWithEmailAndPassword(loginData.email, loginData.password) 
-       .then((userCredential) => { 
-           const user = userCredential.user; 
-           
-           // mimic your old Kinvey session behavior 
-           sessionStorage.username = user.email; 
-           sessionStorage.authToken = user.accessToken || ""; // Firebase doesn't use authtoken the same way 
-           console.log(user);
-           loginSuccess(user); // call your existing success handler 
-       }) 
-       .catch((error) => { 
-           showAJAXError(error); // call your existing error handler 
-       });
-
-    function loginSuccess(data, status) {
-        showListPostsView();
-        showHideNavLinks();
-        showInfo('Login successful');
-    }
-}
-/* END OF LOGIN VIEW */
-
-/* START OF REGISTRATION VIEW */
-const emailInput = document.getElementById('email'); 
-const passInput = document.getElementById('password'); 
-const termsCheck = document.getElementById('terms'); 
-const registerBtn = document.getElementById('registerBtn'); 
-
-function updateRegisterButton() { 
-    const ready = emailInput.value.trim() !== "" && passInput.value.trim() !== "" && terms.checked; 
-    if (ready) { 
-        registerBtn.disabled = false; 
-        registerBtn.classList.remove('btn-primary'); 
-        registerBtn.classList.add('btn-success'); 
-    } else { 
-        registerBtn.disabled = true; 
-        registerBtn.classList.remove('btn-success'); 
-        registerBtn.classList.add('btn-primary'); 
-    } 
-} 
-emailInput.addEventListener('input', updateRegisterButton); 
-passInput.addEventListener('input', updateRegisterButton); 
-termsCheck.addEventListener('change', updateRegisterButton);
-
-
-function registerUser() {
-    let registerData = {
-        username : $('#email').val(),
-        password : $('#password').val()
-    };
-
-   firebase.auth().createUserWithEmailAndPassword(registerData.username, registerData.password) 
-       .then((userCredential) => { 
-           const user = userCredential.user; 
-           console.log(user);
-           // Firebase doesn't use authtoken the same way Kinvey did, 
-           // but you can store the ID token if you need it later. 
-           user.getIdToken().then((token) => { 
-               sessionStorage.authToken = token; 
-           }); 
-           registerSuccess(user); 
-       }) 
-       .catch((error) => { 
-           showAJAXError(error); 
-       });
-
-    function registerSuccess(data, status) {
-       // showListPostsView();
-        showHideNavLinks();
-        showInfo('Register completed successfully.');
-    }
-}
-/* END OF REGISTRATION VIEW */
 
 /* START OF SAVE ARTICLE VIEW */
 function saveArticle() {
@@ -365,12 +286,52 @@ function listPosts() {
 
 }
 
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("modal-trigger")) {
+    const imgSrc = e.target.getAttribute("data-img");
+    const caption = e.target.getAttribute("data-caption") || "";
+
+    document.getElementById("modalImage").src = imgSrc;
+    document.getElementById("modalCaption").textContent = caption;
+
+    const modal = new bootstrap.Modal(document.getElementById("imageModal"));
+    modal.show();
+  }
+});
+
+
 function logout() {
-    sessionStorage.clear();
-    $('#previevwHolder').empty();
-    $('#post-title').empty();
-    $('#listPosts .top').text('Log in first');
-    appended = false;
+    auth.signOut() 
+    .then(() => { 
+        console.log("User logged out"); 
+    }) .catch(error => { 
+        console.error("Logout error:", error); 
+    });
     showHideNavLinks();
     showHomeView();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const allCheckbox = document.getElementById("filterAll");
+    const otherCheckboxes = [
+        document.getElementById("filterExoplanets"),
+        document.getElementById("filterStars"),
+        document.getElementById("filterGalaxies"),
+        document.getElementById("filterNebulas")
+    ];
+
+    // When "All" is toggled → toggle all others
+    allCheckbox.addEventListener("change", () => {
+        const isChecked = allCheckbox.checked;
+        otherCheckboxes.forEach(cb => cb.checked = isChecked);
+    });
+
+    // When any other checkbox is changed → uncheck "All"
+    otherCheckboxes.forEach(cb => {
+        cb.addEventListener("change", () => {
+            if (!cb.checked) {
+                allCheckbox.checked = false;
+            }
+        });
+    });
+});

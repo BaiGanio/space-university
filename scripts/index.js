@@ -48,6 +48,16 @@ function startAppLogic() {
     }
 
 }
+//import AstronomicalObject from "./models/AstronomicalObject.js";
+
+const obj = new AstronomicalObject({
+    object: "NGC 891",
+    type: "GALXY",
+    magnitude: 10.8,
+    constellation: "AND"
+});
+
+console.log(obj);
 
 
 // -----------------------------

@@ -66,6 +66,7 @@ function closeNav() {
     document.body.style.backgroundColor = "white";
 }
 
+//export function initSideNav();
 
 $(function () {
     // alert('Here');

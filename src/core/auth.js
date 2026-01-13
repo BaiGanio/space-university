@@ -1,7 +1,7 @@
 // Това автоматично скрива/показва UI елементи.
 
 auth.onAuthStateChanged(user => {
-  console.log("Auth state:", user);
+//   console.log("Auth state:", user);
 
   const loggedIn = document.querySelectorAll(".requires-auth");
   const guestOnly = document.querySelectorAll(".guest-only");
@@ -22,7 +22,9 @@ auth.onAuthStateChanged(user => {
     loadUniversalObjects();
   }
 });
-
+// -----------------------------
+//  START LOGOUT
+// -----------------------------
 function logout() {
     auth.signOut() 
     .then(() => { 
@@ -33,6 +35,9 @@ function logout() {
     showHideNavLinks();
     showHomeView();
 }
+// -----------------------------
+//  END LOGOUT
+// -----------------------------
 
 /* START OF LOGIN VIEW */
 function login() {
@@ -84,9 +89,6 @@ function updateRegisterButton() {
 emailInput.addEventListener('input', updateRegisterButton); 
 passInput.addEventListener('input', updateRegisterButton); 
 termsCheck.addEventListener('change', updateRegisterButton);
-
-
-
 
 function registerUser() {
     let registerData = {

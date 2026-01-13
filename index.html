@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     
-    <title>Space University</title>
+    <title>Cosmic Origins</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -523,74 +523,6 @@
                 </section>
                 <!-- END LIST GALAXIES CONTENT -->
 
-                <!-- CREATE POST CONTENT -->
-                <section id="viewCreatePost">
-                    <!-- START FORM -->
-                    <div class="login-form-1">
-                        <h1 class="alsandra" style="color: snow">CREATE POST</h1>
-                        <hr />
-                        <br>
-                        <!-- START: register-form -->
-                        <div id="create-post-form" class="text-left">
-                            <div class="main-login-form">
-                                <form action="POST" id="createPostForm">
-                                    <div class="login-group">
-                                        <!--TITLE-->
-                                        <div class="form-group">
-                                            <input type="text" maxlength="100" id="title" placeholder="Title" required="true">
-                                        </div>
-                                        <!--DESCRIPTION-->
-                                        <div class="form-group">
-                                            <input type="text" maxlength="1000" id="description" placeholder="Description" required="true">
-                                        </div>
-                                        <!--IMG URL-->
-                                        <div class="form-group">
-                                            <input type="text"  maxlength="100" id="imgUrl" placeholder="Image url" required="true">
-                                        </div>
-                                        <!--Confirm Password-->
-                                        <div class="form-group">
-                                            <input type="text" maxlength="100" id="articleUrl" placeholder="Article url"  required="true">
-                                        </div>
-
-                                        <!--Button GO-->
-                                        <div class="form-group">
-                                            <input type="submit" class="login-button" value="GO" />
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <!--<span class="qtar" style="font-size: 2em; color: snow">Or create post from url:</span>-->
-                        <br>
-                        <br>
-                        <br>
-                        <!--<div class="main-login-form">-->
-                            <!--<form action="POST" id="createPostFormFromUrl">-->
-                                <!--<div class="login-group">-->
-                                    <!--&lt;!&ndash;TITLE&ndash;&gt;-->
-                                    <!--<div class="form-group">-->
-                                        <!--<input type="text" id="postUrl" placeholder="http://www.mysite.com/article" required="true">-->
-                                    <!--</div>-->
-                                    <!--&lt;!&ndash;Button GO&ndash;&gt;-->
-                                    <!--<div class="form-group">-->
-                                        <!--<input type="submit" id="createFromUrlPostButton" class="login-button" value="GO" />-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</form>-->
-                        <!--</div>-->
-                        <br>
-                        <br>
-                        <br>
-                        <!-- END: register-form -->
-                    </div>
-                    <!-- END FORM -->
-                </section>
-                <!-- END CREATE POST CONTENT -->
-
-
                 <!-- START CREATE ARTICLE CONTENT -->
                 <section id="viewCreateArticle">
                     <h1 class="alsandra" style="font-size: 3.8rem;"><b>Create Article</b></h1>
@@ -748,15 +680,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!--============================== CUSTOM SCRIPTS =================================-->
-    <script src="scripts/firebase-config.js"></script> 
-    <script src="scripts/index.js"></script>
-    <script src="scripts/side-navigation.js"></script>
-    <script src="scripts/modal-images.js"></script>
-    <script src="scripts/main-page-content.js"></script>
-    <script src="scripts/food-cost.js"></script>  
-    <script src="scripts/auth.js"></script> 
-    <script src="scripts/nasa.js"></script> 
-    <script src="scripts/galaxies.js"></script>
+    <script src="src/core/firebase-config.js"></script> 
+    <script src="src/core/index.js"></script>
+    <script src="src/ui/side-navigation.js"></script>
+    <script src="src/ui/modal-images.js"></script>
+    <script src="src/ui/main-page-content.js"></script>
+    <script src="src/ui/food-cost.js"></script>  
+    <script src="src/core/auth.js"></script> 
+    <script src="src/ui/nasa.js"></script> 
+    <script src="src/ui/galaxies.js"></script>
     <script src="src/helpers/firestoreImport.js"></script>
 </body>
 </html>

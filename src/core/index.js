@@ -1,58 +1,7 @@
 /**
  * Created by Republic Of Gamers on 7/16/2016.
  */
-
-
-
-/* MAIN APP LOGIC */
-function startAppLogic() {
-
-    let userID = sessionStorage.getItem("username");
-    console.log("id" + userID);
-    $("#linkLogout").click(logoutUser);
-
-    if(userID){
-        $('#loginLnk').text("");
-        $("#linkLogin").hide();
-        let username = sessionStorage.getItem("username");
-        console.log("Welcome, " + username + "!");
-        $('#userMsg').text("Welcome, " + username + "!");
-        $("#loggedInUser").show();
-        $("#linkLogout").show();
-    }
-    else{
-        $('#loginLnk').text("Login");
-        $("#linkLogin").show();
-        $("#loggedInUser").hide();
-        $("#linkLogout").hide();
-    }
-
-    function logoutUser() {
-        $('#loginLnk').text("Login");
-        $("#linkLogin").show();
-        sessionStorage.clear();
-        $("#user").hide();
-        $("#linkLogout").hide();
-
-        $('#userMsg').text("");
-        showInfo("Logout successful.");
-
-        function showInfo(message) {
-            $('#infoBox').text(message);
-            $('#infoBox').show();
-            setTimeout(function () {
-                $('#infoBox').fadeOut();
-            }, 3000);
-        }
-
-    }
-
-}
-
-
-
 // -----------------------------
-//  SEARCH LOGIC
 // Създаваме глобален namespace:
 // -----------------------------
 const Controllers = {}; // 

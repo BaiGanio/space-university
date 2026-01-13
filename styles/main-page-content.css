@@ -5,13 +5,7 @@
 #main-page-content{
     text-align: center;
 }
-#viewCreatePost{
-    background: url("../images/walle.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
+
 #loadingBox, #infoBox, #errorBox{
     display: none;
 }

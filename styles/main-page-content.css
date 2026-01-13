@@ -27,14 +27,6 @@
 #main-page-content > section{
     display: none;
 }
-#linkListPosts, #linkFoodCost{
-    text-decoration: none;
-    color: #c0a16b;
-}
-#linkListPosts:hover, #linkFoodCost:hover{
-    color: #2e6da4;
-    transition: background 0.7s ease;
-}
 
 .postImg{
     width: 100%;

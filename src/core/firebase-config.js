@@ -10,6 +10,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
 // Global references 
 const auth = firebase.auth(); 
 const db = firebase.firestore();

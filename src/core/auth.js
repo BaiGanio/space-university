@@ -32,7 +32,6 @@ function logout() {
     }) .catch(error => { 
         console.error("Logout error:", error); 
     });
-    showHideNavLinks();
     showHomeView();
 }
 // -----------------------------
@@ -62,7 +61,6 @@ function login() {
 
     function loginSuccess(data, status) {
         showHomeView();
-        showHideNavLinks();
         showInfo('Login successful');
     }
 }
@@ -112,8 +110,6 @@ function registerUser() {
        });
 
     function registerSuccess(data, status) {
-       // showListPostsView();
-        showHideNavLinks();
         showInfo('Register completed successfully.');
     }
 }

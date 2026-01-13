@@ -1,4 +1,4 @@
-let energyChart, costChart;
+let energyChart, costChart, generateCharts;
 
 function calculate() {
     const years = parseInt(document.getElementById('inputYears').value);
@@ -47,9 +47,10 @@ function calculate() {
     const mixedCost = units * 10;
     const premiumCost = units * 16;
 
-   // Formatters 
-   const fmt0 = n => n.toLocaleString(undefined, { maximumFractionDigits: 0 }); 
-   const fmt2 = n => n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    // Formatters 
+    const fmt0 = n => n.toLocaleString(undefined, { maximumFractionDigits: 0 }); 
+    const fmt2 = n => n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    generateCharts = document.getElementById('generateChartCheck').checked;
 
     document.getElementById('output').innerHTML = `
     <h4 style="text-align:center;">Results for ${years} years at ${weight} kg</h4>
@@ -75,9 +76,8 @@ function calculate() {
         <li>Mixed EU diet (€10/1000 kcal): €${fmt0(mixedCost)} → €${fmt0(dailyMixed)} /day</li>
         <li>Premium diet (€16/1000 kcal): €${fmt0(premiumCost)} → €${fmt0(dailyPremium)} /day</li>
     </ul>
-`;
-
-    const generateCharts = document.getElementById('generateChartCheck').checked;
+    `;
+    
     if (generateCharts) {
         // --- Energy Chart ---
         const energyData = [totalKcal, consumed, purchased, produced];

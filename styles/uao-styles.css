@@ -27,7 +27,7 @@
 
 /* FILTERS FOR THE SEARCH BAR */
 .search-filter-wrapper {
-    width: 50%;
+    width: 60%;
     margin: 0 auto;   /* центрира целия модул */
     display: flex;
     flex-direction: column;
@@ -81,6 +81,14 @@
     border-color: cornflowerblue;
     box-shadow: 0 0 14px rgba(100, 149, 237, 0.6);
 }
+.empty-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* или колкото е висока твоята зона */
+  text-align: center;
+}
+
 /* -------------------------------------------------------
                     END SEARCH BAR
 ------------------------------------------------------- */

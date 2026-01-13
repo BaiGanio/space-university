@@ -57,7 +57,7 @@ function login() {
            loginSuccess(user); // call your existing success handler 
        }) 
        .catch((error) => { 
-           showAJAXError(error); // call your existing error handler 
+          console.log(error);
        });
 
     function loginSuccess(data, status) {

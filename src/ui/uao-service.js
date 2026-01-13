@@ -70,14 +70,14 @@ function loadUniversalObjects() {
 function renderObjectCard(id, g) {
   const container = document.getElementById("uaoList");
   const card = document.createElement("div");
-
+console.log(g.imageUrl);
   card.className = "col-md-4 g-3";
   card.innerHTML = ` 
     <div class="card"> 
       <div class="card-image"> 
        <!-- LEFT ACTION: TRASH (visible only when logged in) -->
       
-        <img src="${g.imageUrl || 'images/satellite.png'}" class="img-fluid border border-3 border-secondary shadow-lg modal-trigger" data-img="${g.imageUrl}" data-caption="${g.name}" style="height: 340px; width: 100%; object-fit: cover; cursor: pointer;">
+        <img src="${safeImageUrl(g.imageUrl)}" class="img-fluid border border-3 border-secondary shadow-lg modal-trigger" data-img="${g.imageUrl}" data-caption="${g.name}" style="height: 340px; width: 100%; object-fit: cover; cursor: pointer;">
         <a class="card-action requires-auth" 
         id="trash"
          href="#" 
@@ -97,6 +97,24 @@ function renderObjectCard(id, g) {
 
   container.appendChild(card);
 }
+
+
+
+function safeImageUrl(url) {
+  if (!url) return 'images/no-image.jpg';
+
+  // filter out example.com or similar placeholders
+  if (url.includes('example')) return 'images/no-image.jpg';
+
+  // optional: check if URL looks valid
+  try {
+    new URL(url);
+    return url;
+  } catch {
+    return 'images/no-image.jpg';
+  }
+}
+
 //-----------------------------
 //     END LOAD/FETCH UAOs
 //-----------------------------
@@ -131,8 +149,13 @@ function searchUniversalObjects() {
     .get()
     .then(snapshot => {
       if (snapshot.empty) {
-          container.innerHTML = `<p class="text-center text-muted fs-4">No objects found.</p>`;
-          return;
+        container.innerHTML = `
+          <div class="empty-message">
+            <p class="text-center text-muted fs-2">No objects found.</p>
+          </div>
+        `;
+
+        return;
       }
 
       snapshot.forEach(doc => {

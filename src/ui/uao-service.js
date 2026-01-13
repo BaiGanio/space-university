@@ -61,16 +61,22 @@ function loadUniversalObjects() {
       .limit(12)
       .get()
       .then(snapshot => {
+          const items = []; // ← ТОВА ЛИПСВА
           snapshot.forEach(doc => {
-            renderObjectCard(doc.id, doc.data());
+
+            const data = doc.data();
+
+            renderObjectCard(doc.id, data);
+            items.push({ imageUrl: safeImageUrl(data.imageUrl), title: data.name || "Untitled", description: data.description || "" });
           });
+          renderCarousel(items);
       });
 }
 
 function renderObjectCard(id, g) {
   const container = document.getElementById("uaoList");
   const card = document.createElement("div");
-console.log(g.imageUrl);
+
   card.className = "col-md-4 g-3";
   card.innerHTML = ` 
     <div class="card"> 
@@ -197,4 +203,58 @@ imageInput.addEventListener("input", () => {
 //-----------------------------
 // END IMAGE URL LIVE PREVIEW
 //-----------------------------
+
+function renderCarousel(items) {
+  if (!items || items.length === 0) {
+    document.getElementById("carouselContainer").innerHTML = `
+      <p class="text-center text-muted fs-4">No images available.</p>
+    `;
+    return;
+  }
+
+  let indicators = "";
+  let slides = "";
+
+  items.forEach((item, index) => {
+    indicators += `
+      <button type="button" data-bs-target="#carouselContainer" data-bs-slide-to="${index}"
+        class="${index === 0 ? 'active' : ''}" aria-current="${index === 0 ? 'true' : 'false'}"></button>
+    `;
+
+    slides += `
+      <div class="carousel-item ${index === 0 ? 'active' : ''}">
+        <img src="${item.imageUrl}" class="d-block w-100 carousel-img">
+
+        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+          <h5>${item.title || "Untitled"}</h5>
+          <h4>${item.description || ""}</h4>
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById("carouselContainer").innerHTML = `
+    <div id="carouselContainer" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3500">
+      
+      <div class="carousel-indicators">
+        ${indicators}
+      </div>
+
+      <div class="carousel-inner">
+        ${slides}
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselContainer" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselContainer" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+
+    </div>
+  `;
+}
+
+
 

@@ -1,7 +1,6 @@
 
 
 const dummyObjects = getFullDummyDataset();
-importToFirestore(dummyObjects, "uao", false);
 
 /**
  * Imports an array of UniversalAstronomicalObject objects into Firestore.
@@ -545,3 +544,227 @@ function getFullDummyDataset() {
         })
     ];
 }
+const dummyUAOObjects = [
+
+    {
+        name: "Sirius B",
+        aliases: ["WD 0642-166"],
+        category: "star",
+        subcategory: "white_dwarf",
+        catalogSource: ["SIMBAD"],
+        sourcePriority: { coordinates: "SIMBAD", photometry: "SIMBAD" },
+        dataQuality: "medium",
+        ra: "06 45.1",
+        dec: "-16.7",
+        coordinatesEpoch: "J2000",
+        distance: "8.6 ly",
+        magnitude: 8.3,
+        spectralType: "DA2",
+        mass: null,
+        radius: "10300 km",
+        temperature: null,
+        luminosity: null,
+        orbitalPeriod: null,
+        semiMajorAxis: null,
+        eccentricity: null,
+        discoveryMethod: null,
+        parentBody: null,
+        orbitalElements: null,
+        sizeMax: null,
+        sizeMin: null,
+        positionAngle: null,
+        surfaceBrightness: null,
+        tags: ["white-dwarf", "binary"],
+        description: "Bright white dwarf companion to Sirius A.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/sirius_a_b.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "Procyon B",
+        aliases: ["WD 0736+053"],
+        category: "star",
+        subcategory: "white_dwarf",
+        catalogSource: ["SIMBAD"],
+        ra: "07 39.3",
+        dec: "+05.2",
+        coordinatesEpoch: "J2000",
+        distance: "11.4 ly",
+        magnitude: 10.7,
+        spectralType: "DQZ",
+        tags: ["white-dwarf"],
+        description: "White dwarf companion to Procyon A.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/procyon_system.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "van Maanen's Star",
+        aliases: ["Wolf 28"],
+        category: "star",
+        subcategory: "white_dwarf",
+        catalogSource: ["SIMBAD"],
+        ra: "00 49.2",
+        dec: "+05.4",
+        distance: "14 ly",
+        magnitude: 12.4,
+        spectralType: "DZ7",
+        tags: ["white-dwarf", "high-proper-motion"],
+        description: "Closest isolated white dwarf.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/van_maanen_star.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "Y CVn",
+        aliases: ["La Superba"],
+        category: "star",
+        subcategory: "giant",
+        catalogSource: ["SIMBAD"],
+        ra: "12 45.1",
+        dec: "+45.4",
+        magnitude: "5.0–6.4",
+        spectralType: "C-N5",
+        tags: ["carbon-star", "very-red"],
+        description: "Extremely red carbon star known as La Superba.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/la_superba.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "R Leporis",
+        aliases: ["Hind's Crimson Star"],
+        category: "variable_star",
+        subcategory: "carbon_star",
+        catalogSource: ["SIMBAD"],
+        ra: "04 59.6",
+        dec: "-14.8",
+        magnitude: "5.9–11",
+        spectralType: "C6",
+        tags: ["very-red", "carbon-star"],
+        description: "Deep red carbon variable star.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/hinds_crimson_star.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "Barnard's Star",
+        aliases: ["BD+04 3561a"],
+        category: "star",
+        subcategory: "red_dwarf",
+        catalogSource: ["SIMBAD"],
+        ra: "17 57.9",
+        dec: "+04.6",
+        magnitude: 9.54,
+        spectralType: "M5V",
+        tags: ["high-proper-motion"],
+        description: "Star with the highest known proper motion.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/barnards_star.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "Wolf 359",
+        aliases: ["CN Leo"],
+        category: "star",
+        subcategory: "red_dwarf",
+        catalogSource: ["SIMBAD"],
+        ra: "10 56.7",
+        dec: "+07.0",
+        magnitude: 13.66,
+        spectralType: "M6V",
+        tags: ["nearby-star"],
+        description: "Nearby faint red dwarf.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/wolf359.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "Andromeda Galaxy",
+        aliases: ["M31", "NGC 224"],
+        category: "galaxy",
+        subcategory: "spiral",
+        catalogSource: ["SAC"],
+        ra: "00 42.7",
+        dec: "+41.3",
+        distance: "2.5 million ly",
+        magnitude: 3.4,
+        tags: ["local-group"],
+        description: "Nearest major galaxy to the Milky Way.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/m31_andromeda.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "Dumbbell Nebula",
+        aliases: ["M27", "NGC 6853"],
+        category: "nebula",
+        subcategory: "planetary",
+        catalogSource: ["SAC"],
+        ra: "19 59.6",
+        dec: "+22.7",
+        magnitude: 7.5,
+        tags: ["planetary-nebula"],
+        description: "Bright planetary nebula in Vulpecula.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/m27_dumbbell.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    },
+
+    {
+        name: "Ring Nebula",
+        aliases: ["M57", "NGC 6720"],
+        category: "nebula",
+        subcategory: "planetary",
+        catalogSource: ["SAC"],
+        ra: "18 53.6",
+        dec: "+33.0",
+        magnitude: 8.8,
+        tags: ["planetary-nebula"],
+        description: "Iconic ring-shaped planetary nebula.",
+        notes: "",
+        imageUrl: "https://www.nasa.gov/wp-content/uploads/2023/03/m57_ring_nebula.jpg",
+        likedBy: [],
+        createdBy: null,
+        createdAt: null,
+        updatedAt: null
+    }
+
+];
+
+// importToFirestore(dummyUAOObjects, "uao", false);

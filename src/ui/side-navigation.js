@@ -66,6 +66,17 @@ function closeNav() {
     document.body.style.backgroundColor = "white";
 }
 
+document.getElementById("collapseAside").addEventListener("click", () => {
+    const aside = document.getElementById("asidebar-menu");
+    aside.classList.toggle("collapsed");
+
+    const btn = document.getElementById("collapseAside");
+    btn.textContent = aside.classList.contains("collapsed")
+        ? "⮞ Expand"
+        : "⮜ Collapse";
+});
+
+
 //export function initSideNav();
 
 $(function () {

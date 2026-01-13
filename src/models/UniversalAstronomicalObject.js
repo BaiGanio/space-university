@@ -13,7 +13,7 @@
  * - Source priority map (for future merging logic)
  * - Data quality indicator
  * - Tags for UI filtering
- * - Coordinate epoch (J2000, J2015, etc.)
+ * - Coordinate epoch (J2000, J2015, etc.)a
  */
 
 export default class UniversalAstronomicalObject {

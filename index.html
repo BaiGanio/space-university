@@ -42,51 +42,118 @@
     </div>
     <!--============================== END ANIMATED SIDE NAVIGATION =================================-->
 
+    <style>
+       #asidebar-menu {
+  width: 260px;
+  transition: width 0.35s ease, opacity 0.35s ease;
+  overflow: hidden;
+}
+
+#asidebar-menu.collapsed {
+  width: 70px;
+}
+
+/* Hide text but keep icons visible */
+#asidebar-menu.collapsed h1,
+#asidebar-menu.collapsed nav a {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Keep logo visible but smaller */
+#asidebar-menu.collapsed #logo {
+  width: 40px;
+  transition: width 0.3s ease;
+}
+
+/* Optional: shrink theme button */
+#asidebar-menu.collapsed #themeSwitcher {
+  opacity: 0;
+  pointer-events: none;
+}
+.neon-toggle {
+  color: #00eaff;
+  border-color: #00eaff;
+  text-shadow: 0 0 8px #00eaff;
+  box-shadow: 0 0 12px rgba(0,234,255,0.4);
+  transition: 0.25s ease;
+  margin-bottom: 10px;
+}
+
+.neon-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00eaff;
+}
+#asidebar-menu {
+  width: 260px;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+#asidebar-menu.collapsed {
+  width: 60px;
+}
+#main-content {
+  flex-grow: 1;
+  transition: all 0.3s ease;
+}
+
+
+    </style>
     <!--============================== PAGE CONTENT =================================-->
     <div id="main">
         <div class="row">
 
             <!-- SIDE MENU -->
             <div class="col-md-3 guildof" id="side-nav-menu">
+
                 <p><a id="shrink-menu" href="#">Expand Menu</a></p>
-                <aside class="sidebar">
-                    <div class="logo">
-                        <a href="javascript:void(0)" onclick="closeNav()">
-                            <img src="images/satellite.png" alt="logo" id="logo" >
-                        </a>
-                        <h1 class="guildof" style="font-size:3.4em;"><b>COSMIC ORIGINS</b></h1>
-                        <a href="#" onclick="openNav()">
-                            <img src="images/menu-icon.png" class="sidebar-menu" alt="" style="width:25%" />
-                        </a>
-                      <br>
+                <div class="col-md-3" id="left-column">
+                    <aside class="sidebar" id="asidebar-menu">
+                    <button id="collapseAside" class="btn btn-outline-info guildof">
+                        ⮜ Collapse
+                    </button>
+                        <div class="logo">
+                            <a href="javascript:void(0)" onclick="closeNav()">
+                                <img src="images/satellite.png" alt="logo" id="logo" >
+                            </a>
+                            <h1 class="guildof" style="font-size:3.4em;"><b>COSMIC ORIGINS</b></h1>
+                            <a href="#" onclick="openNav()">
+                                <img src="images/menu-icon.png" class="sidebar-menu" alt="" style="width:25%" />
+                            </a>
                         <br>
-                        <button id="themeSwitcher" class="btn btn-primary guildof" 
-                            🌗 Theme
-                        </button>
-                    </div>
-                    <hr>
-                    <nav class="page-navigation guildof">
-                        <a href="#" id="linkHome" class="single-menu-element-link">
-                            Home
-                        </a>
-                        <a href="#" id="linkLogin" class="single-menu-element-link guest-only">
-                            Login
-                        </a>
-                        <a href="#" id="linkRegister" class="single-menu-element-link guest-only">
-                            Register
-                        </a>
+                            <br>
+                            <button id="themeSwitcher" class="btn btn-primary guildof" 
+                                🌗 Theme
+                            </button>
+                        </div>
                         <hr>
-                        <hr>
-                          <a href="#" id="linkFoodCost" class="single-menu-element-link">
-                               food cost
+                        <nav class="page-navigation guildof">
+                            <a href="#" id="linkHome" class="single-menu-element-link">
+                                Home
+                            </a>
+                            <a href="#" id="linkGallery" class="single-menu-element-link">
+                                Gallery
+                            </a>
+                            <a href="#" id="linkLogin" class="single-menu-element-link guest-only">
+                                Login
+                            </a>
+                            <a href="#" id="linkRegister" class="single-menu-element-link guest-only">
+                                Register
                             </a>
                             <hr>
-                        <a href="#" id="linkLogout" class="single-menu-element-link requires-auth">
-                            Logout
-                        </a>
-                        <hr>
-                    </nav>
-                </aside>
+                            <hr>
+                            <a href="#" id="linkFoodCost" class="single-menu-element-link">
+                                food cost
+                                </a>
+                                <hr>
+                            <a href="#" id="linkLogout" class="single-menu-element-link requires-auth">
+                                Logout
+                            </a>
+                            <hr>
+                        </nav>
+                    </aside>
+                </div>
             </div>
             <!-- END SIDE MENU -->
 
@@ -101,6 +168,16 @@
 
                 <!-- START HOME PAGE CONTENT -->
                 <section id="viewHome">
+                    <hr>
+                    <h1 class="guildof" style="font-size: 2.6rem; font-weight: 600;"><b>respect the diversities of the species - we are all unique</b></h1>
+                    <hr />
+                    <!-- <div id="carouselContainer"></div> -->
+                    <div id="carouselContainer" class="carousel-wrapper carousel slide" data-bs-ride="carousel" data-bs-interval="6500">
+                </section>
+                <!-- END HOME PAGE CONTENT -->
+
+                <!-- START GALAXIES LIST CONTENT -->
+                <section id="viewGallery">
                     <h1 class="guildof" style="font-size: 3rem;"><b>The Unified Data Hub of the Known Universe</b></h1>
                     <hr />
                     <div class="container ">
@@ -174,7 +251,7 @@
                     </div>
                     <div class="row" id="uaoList"></div>
                 </section>
-                <!-- END HOME PAGE CONTENT -->
+                <!-- END GALAXIES LIST CONTENT -->
 
                 <!-- START LOGIN CONTENT -->
                 <section id="viewLogin" class="guildof">

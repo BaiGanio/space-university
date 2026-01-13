@@ -72,13 +72,12 @@ function showFoodCostView() {
 function showAddGalaxyView() {
     showView('viewAddGalaxy');
 }
-function showListGalaxiesView() {
-    showView('viewListGalaxies');
+function showGalleryView() {
+    showView('viewGallery');
 }
 
 
 $(function () {
-
     $('#linkHome').click(showHomeView);
     $('#linkLogin').click(showLoginView);
     $('#linkRegister').click(showRegisterView);
@@ -87,7 +86,7 @@ $(function () {
     $('#linkFoodCost').click(showFoodCostView);
     
     $('#linkAddGalaxy').click(showAddGalaxyView);
-    $('#linkListGalaxies').click(showListGalaxiesView);
+    $('#linkGallery').click(showGalleryView);
     /* Note that by default HTML forms submit their data as HTTP GET request.
      You should prevent this default action and replace it with JavaScript code.
      Use e.preventDefault() as shown above.

@@ -133,4 +133,34 @@ function searchUniversalObjects() {
     });
 }
 
+//-----------------------------
+// START IMAGE URL LIVE PREVIEW
+//-----------------------------
+const imageInput = document.getElementById("uacImageUrl");
+const previewWrapper = document.getElementById("uacImagePreviewWrapper");
+const previewImg = document.getElementById("uacImagePreview");
+
+imageInput.addEventListener("input", () => {
+    const url = imageInput.value.trim();
+
+    if (!url) {
+        previewWrapper.classList.add("d-none");
+        previewImg.src = "";
+        return;
+    }
+
+    previewImg.src = url;
+
+    previewImg.onload = () => {
+        previewWrapper.classList.remove("d-none");
+    };
+
+    previewImg.onerror = () => {
+        previewImg.src = "";
+        previewWrapper.classList.add("d-none");
+    };
+});
+//-----------------------------
+// END IMAGE URL LIVE PREVIEW
+//-----------------------------
 

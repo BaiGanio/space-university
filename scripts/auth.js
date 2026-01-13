@@ -23,6 +23,17 @@ auth.onAuthStateChanged(user => {
   }
 });
 
+function logout() {
+    auth.signOut() 
+    .then(() => { 
+        console.log("User logged out"); 
+    }) .catch(error => { 
+        console.error("Logout error:", error); 
+    });
+    showHideNavLinks();
+    showHomeView();
+}
+
 /* START OF LOGIN VIEW */
 function login() {
     let loginData = {
@@ -45,7 +56,7 @@ function login() {
        });
 
     function loginSuccess(data, status) {
-        showListGalaxiesView();
+        showHomeView();
         showHideNavLinks();
         showInfo('Login successful');
     }
@@ -73,6 +84,8 @@ function updateRegisterButton() {
 emailInput.addEventListener('input', updateRegisterButton); 
 passInput.addEventListener('input', updateRegisterButton); 
 termsCheck.addEventListener('change', updateRegisterButton);
+
+
 
 
 function registerUser() {
@@ -103,4 +116,7 @@ function registerUser() {
     }
 }
 /* END OF REGISTRATION VIEW */
+
+
+
 

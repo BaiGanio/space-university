@@ -1,4 +1,6 @@
 
+
+
 /* Aside */
 .sidebar{
     /*  border: 2px solid black;*/
@@ -15,59 +17,29 @@
     /*border:2px solid black;*/
     width: 40%;
 }
-.single-menu-element-link > a{
-    font-weight: 900;
-    text-decoration: none;
-
-    -moz-transition-property: font-weight;
-    -moz-transition-duration: 3s;
-    -moz-transition-timing-function: linear;
-    -moz-transition-delay: 2.5s;
-
-    -webkit-transition-property: font-weight;
-    -webkit-transition-duration: 3s;
-    -webkit-transition-timing-function: linear;
-    -webkit-transition-delay: 2.5s;
+.single-menu-element-link { 
+    display: block; 
+    text-decoration: none; 
+    color: var(--color-text) !important;
+    transition: background var(--transition-med), color var(--transition-med), padding-left var(--transition-med); 
 }
-.single-menu-element-link>a:hover{
-    transition: background 0.7s ease;
+/* Hover effect */ 
+.single-menu-element-link:hover { 
+    background: var(--color-accent-soft); 
+    color: var(--color-accent) !important;
+    padding-left: 20px; /* subtle slide effect */ 
+    transition: var(--transition-med);
+} 
+/* Active/focused state */ 
+.single-menu-element-link:focus, .single-menu-element-link:active { 
+    background: var(--color-accent-strong); 
+    color: white; 
 }
-/* End Aside */
-.page-navigation>a{
-    color: black;
-    font-size: 2em;
-    text-decoration: none;
-    display: block;
+.page-navigation hr {
+    border: none;
+    border-top: 1px solid var(--color-accent-strong);
+    margin: 8px 0;
 }
-.page-navigation>a:hover{
-    color: #2e6da4;
+.page-navigation.guildof a.single-menu-element-link {
+    font-size: 2rem !important;
 }
-#post-title{
-    font-size: 1.6em !important;
-    text-align: left !important;
-    color: black;
-}
-/*.container-sandwich {*/
-    /*display: inline-block;*/
-    /*cursor: pointer;*/
-/*}*/
-
-/*.bar1, .bar2, .bar3 {*/
-    /*width: 35px;*/
-    /*height: 5px;*/
-    /*background-color: #333;*/
-    /*margin: 6px 0;*/
-    /*transition: 0.4s;*/
-/*}*/
-
-/*.sidebar-menu {*/
-    /*-webkit-transform: rotate(45deg) translate(-9px, 6px) ;*/
-    /*transform: rotate(45deg) translate(-9px, 6px) ;*/
-/*}*/
-
-/*.change .bar2 {opacity: 0;}*/
-
-/*.change .bar3 {*/
-    /*-webkit-transform: rotate(45deg) translate(-8px, -8px) ;*/
-    /*transform: rotate(45deg) translate(-8px, -8px) ;*/
-/*}*/

@@ -119,6 +119,3 @@ function searchGalaxies() {
     });
 }
 
-
-
-

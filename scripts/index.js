@@ -2,57 +2,6 @@
  * Created by Republic Of Gamers on 7/16/2016.
  */
 
-/* Create loading animation */
-$(window).on('load', function() { // makes sure the whole site is loaded
-    setTimeout(function () {
-        $('#status').fadeOut("slow");
-    }, 2500); // will first fade out the loading animation
-    $('#preloader').fadeOut(); // will fade out the white DIV that covers the website.
-    // $('#status').fadeOut("slow");
-    // $('body').css({'overflow':'visible'});
-    setTimeout(showBody,500);
-    function showBody(){
-        $('body').css({'overflow':'visible'});
-    }
-});
-
-
-/* Old layout content */
-$('#ganio-info').click(function () {
-    document.getElementById('main-content').style.display = 'inline-block';
-    document.getElementById('bai-ganio').style.display = 'block';
-    document.getElementById('bai-ganio').style.width = '65%';
-    $('#bai-ganio').css('margin', '0 auto');
-});
-
-/* Flip card functionality */
-$('.flip4o').click(function () {
-    //        alert("here");
-    $('#card').addClass('flipped');
-    $("section").hide();
-    $("#header").hide();
-    $(".back").show();
-    $('body').css("padding-top", "0px");
-});
-
-/* Flip blogs functionality */
-$('.flipBlogs').click(function () {
-    //        alert("here");
-    $('#blogs-card').addClass('flipped');
-    $(".blog-back").show();
-    $('body').css("padding-top", "0px");
-});
-
-$('#arrLft').click(function () {
-    //        alert("here");
-    $('#card').removeClass('flipped');
-    $("section").show();
-    $("#header").show();
-    $(".back").hide();
-    $('body').css("padding-top","50px");
-});
-
-
 
 
 /* MAIN APP LOGIC */
@@ -99,13 +48,231 @@ function startAppLogic() {
     }
 
 }
-// function attachModalHandlers() { let triggers = document.querySelectorAll('.modal-trigger'); triggers.forEach(img => { img.onclick = function () { modal.style.display = "block"; modalImg.src = this.src; modalImg.alt = this.alt; captionText.innerHTML = this.alt; }; }); }
 
-// document.addEventListener("click", function(e) { 
-//   if (e.target.classList.contains("modal-trigger")) { 
-//     const imgSrc = e.target.getAttribute("data-img"); 
-//     const caption = e.target.getAttribute("data-caption") || "";
-//     modal.style.display = "block"; 
-//     modalImg.src = imgSrc; modalImg.alt = caption; captionText.innerHTML = caption; 
-//   } 
-// });
+
+// -----------------------------
+//  SEARCH LOGIC
+// Създаваме глобален namespace:
+// -----------------------------
+const Controllers = {}; // 
+/*  
+    Единен DOMContentLoaded блок (централен entry point)
+*/
+document.addEventListener("DOMContentLoaded", () => {
+
+    Controllers.AjaxInterceptor.init();
+    Controllers.TermsModal.init();
+    Controllers.Filters.init();
+    Controllers.Search.init();
+    Controllers.AuthUI.init(); // ако имаш auth логика
+    Controllers.Theme.init();
+
+});
+
+// -----------------------------
+//  THEMES
+// -----------------------------
+Controllers.Theme = {
+    themes: ["dark", "light"],
+    currentIndex: 0,
+    defaultTheme: "light",
+
+    init() {
+        const btn = document.getElementById("themeSwitcher");
+        if (!btn) return;
+
+        // Load saved theme
+        const saved = localStorage.getItem("theme");
+        if (saved) {
+            document.body.classList.add(saved);
+            this.currentIndex = this.themes.indexOf(saved);
+        }else { 
+            document.body.classList.add(this.defaultTheme); 
+            localStorage.setItem("theme", this.defaultTheme); 
+            this.currentIndex = this.themes.indexOf(this.defaultTheme); 
+        }
+
+        // Update button text on load 
+        this.updateThemeButtonLabel(btn);
+
+        btn.addEventListener("click", () => {
+            // Remove previous theme
+            document.body.classList.remove(this.themes[this.currentIndex]); 
+            // Move to next theme 
+            this.currentIndex = (this.currentIndex + 1) % this.themes.length; 
+            const newTheme = this.themes[this.currentIndex]; 
+            document.body.classList.add(newTheme); 
+            localStorage.setItem("theme", newTheme);
+            this.updateThemeButtonLabel(btn);
+        });
+    },
+    updateThemeButtonLabel(btn) { 
+        const themeName = this.themes[this.currentIndex]; 
+        const label = themeName.charAt(0).toUpperCase() + themeName.slice(1); 
+        btn.innerHTML = `🌗 ${label}`;
+    }
+};
+
+Controllers.Search = { 
+    init() { 
+        // -----------------------------
+        //  SEARCH LOGIC
+        // -----------------------------
+        const searchInput = document.getElementById("searchInput"); 
+        if (!searchInput) return; 
+        
+        searchInput.addEventListener("input", () => { 
+            Controllers.Filters.applyFilters(); 
+        });
+    } 
+};
+
+Controllers.Filters = {
+    allCheckbox: null,
+    filters: {},
+    cards: null,
+    searchInput: null,
+
+    init() {
+        this.allCheckbox = document.getElementById("filterAll");
+        this.filters = {
+            exoplanet: document.getElementById("filterExoplanets"),
+            star: document.getElementById("filterStars"),
+            galaxy: document.getElementById("filterGalaxies"),
+            nebula: document.getElementById("filterNebulas")
+        };
+
+        this.cards = document.querySelectorAll(".galaxy-card");
+        this.searchInput = document.getElementById("searchInput");
+
+        this.attachEvents();
+        this.applyFilters();
+    },
+
+    // -----------------------------
+    //  CHECKBOX LOGIC
+    // -----------------------------
+    attachEvents() {
+        // ALL checkbox
+        this.allCheckbox.addEventListener("change", () => {
+            const isChecked = this.allCheckbox.checked;
+            Object.values(this.filters).forEach(cb => cb.checked = isChecked);
+            this.applyFilters();
+        });
+
+        // Other checkboxes
+        Object.values(this.filters).forEach(cb => {
+            cb.addEventListener("change", () => {
+                this.allCheckbox.checked = false;
+
+                const allChecked = Object.values(this.filters).every(x => x.checked);
+                if (allChecked) this.allCheckbox.checked = true;
+
+                this.applyFilters();
+            });
+        });
+
+        // Search input
+        this.searchInput.addEventListener("input", () => this.applyFilters());
+    },
+    
+    // -----------------------------
+    //  FILTER LOGIC
+    // -----------------------------
+    applyFilters() {
+        const searchValue = this.searchInput.value.toLowerCase();
+
+        const activeTypes = Object.entries(this.filters)
+            .filter(([type, cb]) => cb.checked)
+            .map(([type]) => type);
+
+        this.cards.forEach(card => {
+            const name = card.dataset.name.toLowerCase();
+            const type = card.dataset.type;
+
+            const matchesSearch = name.includes(searchValue);
+            const matchesType = activeTypes.includes(type);
+
+            card.style.display = (matchesSearch && matchesType) ? "" : "none";
+        });
+    }
+};
+
+Controllers.TermsModal = {
+    checkbox: null,
+    modal: null,
+
+    init() {
+        this.checkbox = document.getElementById("terms");
+
+        const modalElement = document.getElementById("termsModal");
+        this.modal = new bootstrap.Modal(modalElement);
+
+        document.getElementById("openTermsModal").addEventListener("click", (e) => {
+            e.preventDefault();
+            this.modal.show();
+        });
+
+        modalElement.addEventListener("hidden.bs.modal", () => {
+            this.checkbox.checked = true;
+        });
+    }
+};
+
+Controllers.AuthUI = {
+    init() {
+        // show/hide buttons, roles, etc.
+    }
+};
+
+Controllers.AjaxInterceptor = {
+    activeRequests: 0,
+    loadingBox: null,
+
+    init() {
+       // this.loadingBox = document.getElementById("loadingBox");
+        this.interceptFetch();
+        this.interceptXHR();
+    },
+
+    update() {
+       // this.loadingBox.style.display = this.activeRequests > 0 ? "block" : "none";
+    },
+
+    interceptFetch() {
+        const originalFetch = window.fetch;
+
+        window.fetch = (...args) => {
+            this.activeRequests++;
+            this.update();
+
+            return originalFetch(...args)
+                .finally(() => {
+                    this.activeRequests--;
+                    this.update();
+                });
+        };
+    },
+
+    interceptXHR() {
+        const originalXHR = window.XMLHttpRequest;
+
+        window.XMLHttpRequest = function () {
+            const xhr = new originalXHR();
+
+            xhr.addEventListener("loadstart", () => {
+                Controllers.AjaxInterceptor.activeRequests++;
+                Controllers.AjaxInterceptor.update();
+            });
+
+            xhr.addEventListener("loadend", () => {
+                Controllers.AjaxInterceptor.activeRequests--;
+                Controllers.AjaxInterceptor.update();
+            });
+
+            return xhr;
+        };
+    }
+};
+
+

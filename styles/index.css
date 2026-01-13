@@ -1,20 +1,11 @@
-body{
-    overflow: hidden;
-}
+/* ✨ Направя пълен style.css за твоя проект
+✨ Изградя design system (цветове, компоненти, spacing scale)
+✨ Направя theme switcher (dark/cosmic/light)
+✨ Подредя всичките ти UI елементи да следват тази система
+Направя responsive grid за картите
+✨ Изградя UI kit PDF за проекта ти
 
-/* Preloader */
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #fff;
-    /* change if the mask should have another color then white */
-    z-index: 99;
-    /* makes sure it stays on top */
-}
-
+ */
 
 .requires-auth {
   display: none !important;
@@ -23,41 +14,7 @@ body{
 body.logged-in .requires-auth {
   display: block !important;
 }
-
-#status {
-    /*width: 100%;*/
-    height: 800px;
-    /*position: absolute;*/
-    /*left: 50%;*/
-    /* centers the loading animation horizontally one the screen */
-    /*top: 50%;*/
-    /* centers the loading animation vertically one the screen */
-
-    /*-webkit-background-size: cover;*/
-    /*-moz-background-size: cover;*/
-    /*-o-background-size: cover;*/
-    /*background-size: cover;*/
-    /* path to your loading animation */
-    /*background-repeat: cover;*/
-    /*background-position: center;*/
-        /*margin: -100px 0 0 -100px;*/
-    /* is width and height divided by two */
-}
-
-.daliQ {
-    /*font-family: BulgariaModernaV3 !important;*/
-    font-family: BulgariaModernaV3 !important;
-    font-size:2em;
-}
- /*  Helper Styles */
-    body {
-        font-family: Varela Round;
-        background: #f1f1f1;
-    }
-
-    a {
-        text-decoration: none;
-    }
+   
     .card-sl {
         padding: 10px;
         border-radius: 8px;
@@ -120,9 +77,9 @@ body.logged-in .requires-auth {
 
     }
    
-.card:hover{
-  box-shadow: -1px 5px 15px 0px rgba(0,0,0,0.8);
-}
+    .card:hover{
+    box-shadow: -1px 5px 15px 0px rgba(0,0,0,0.8);
+    }
 
     @-webkit-keyframes pulse {
         0% {

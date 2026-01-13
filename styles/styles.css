@@ -1,0 +1,265 @@
+/* CSS VARIABLES — основа на design system-а */
+:root {
+    /* Fonts */
+    --font-primary: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Colors (Default Dark Theme)*/
+    --color-bg: #0b0e1a;
+    --color-bg-soft: #111423;
+    --color-text: #e6e6e6;
+    --color-text-soft: #bfc3d9;
+
+    --color-accent: #6495ed; /* cornflowerblue */
+    --color-accent-soft: rgba(100,149,237,0.2);
+    --color-accent-strong: rgba(100,149,237,0.5);
+
+    --color-danger: #ff4d4d;
+    --color-success: #4dff88;
+    --color-warning: #ffd24d;
+
+    /* Spacing scale */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+
+    /* Border radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    /* Shadows */
+    --shadow-soft: 0 0 10px rgba(100,149,237,0.25);
+    --shadow-strong: 0 0 20px rgba(100,149,237,0.45);
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-med: 0.25s ease;
+}
+
+/* -------------------------------------------------------
+                        THEMES
+------------------------------------------------------- */
+/* Light Theme */ 
+body.light { 
+    --color-bg: #ffffff; 
+    --color-bg-soft: #f3f3f3; 
+    --color-text: #111111; 
+    --color-text-soft: #333333; 
+    --color-accent: #0055ff; 
+    --color-accent-soft: rgba(0,85,255,0.15); 
+    --color-accent-strong: rgba(0,85,255,0.35); 
+} 
+/* Cosmic Theme (fun mode) */ 
+body.cosmic { 
+    --color-bg: #12002b; 
+    --color-bg-soft: #1d0040; 
+    --color-text: #e8d9ff; 
+    --color-text-soft: #c9b3ff; 
+    --color-accent: #ff7bff; 
+    --color-accent-soft: rgba(255,123,255,0.2); 
+    --color-accent-strong: rgba(255,123,255,0.5); 
+}
+
+body.cosmic-retro {
+    --color-bg: #2b1055;           /* Deep Midnight Purple */
+    --color-bg-soft: #432371;      /* Lighter Violet */
+    --color-text: #fff;            /* Pure White */
+    --color-text-soft: #f887ff;     /* Neon Pink */
+    --color-accent: #2de2e6;       /* Electric Cyan */
+    --color-accent-soft: rgba(45, 226, 230, 0.2);
+    --color-accent-strong: rgba(246, 1, 157, 0.6); /* Hot Pink Glow */
+}
+body.cosmic-nebula {
+    --color-bg: #0b1f3a;           /* Champagne Supernova Dark */
+    --color-bg-soft: #1b263b;      /* Deep Navy */
+    --color-text: #e0f2f1;         /* Starlight Mint */
+    --color-text-soft: #9aeadd;     /* Galactic Green */
+    --color-accent: #7cfebd;       /* Soft Aurora Green */
+    --color-accent-soft: rgba(124, 254, 189, 0.15);
+    --color-accent-strong: #df8bfe; /* Lavender Flare */
+}
+body.cosmic-flare {
+    --color-bg: #1c1c1c;           /* Dark Matter */
+    --color-bg-soft: #2d2d2d;      /* Lunar Charcoal */
+    --color-text: #f9f9f9;         /* Off-white */
+    --color-text-soft: #ffb74d;     /* Solar Gold */
+    --color-accent: #f46036;       /* Martian Orange */
+    --color-accent-soft: rgba(244, 96, 54, 0.2);
+    --color-accent-strong: #d72638; /* Fiery Red */
+}
+
+
+/* -------------------------------------------------------
+                       END THEMES
+------------------------------------------------------- */
+
+/* BASE RESET + BODY */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    padding-bottom: 100px;
+}
+
+/* -------------------------------------------------------
+                      TYPOGRAPHY
+------------------------------------------------------- */
+/* TYPOGRAPHY — h1–h6, p, span, small */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+}
+
+h1 { font-size: 2.4rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.3rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
+
+p {
+    font-size: 1rem;
+    margin-bottom: var(--space-3);
+    color: var(--color-text-soft);
+}
+
+span {
+    font-size: 1rem;
+}
+
+small {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+/* -------------------------------------------------------
+                      END TYPOGRAPHY
+------------------------------------------------------- */
+/* -------------------------------------------------------
+                      LAYOUT UTILITIES
+------------------------------------------------------- */
+
+/* LAYOUT UTILITIES — flex, grid, spacing, centering */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.center { display: flex; justify-content: center; align-items: center; }
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-5 { gap: var(--space-5); }
+.gap-6 { gap: var(--space-6); }
+
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-5 { margin-top: var(--space-5); }
+/* -------------------------------------------------------
+                      END LAYOUT UTILITIES
+------------------------------------------------------- */
+/* -------------------------------------------------------
+                      COMPONENTS
+------------------------------------------------------- */
+/* COMPONENTS — buttons, inputs, cards, modals */
+
+/* .btn-primary {
+    background: var(--color-accent);
+    border: none;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    color: white;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: var(--transition-med);
+} */
+
+.btn-primary:hover {
+    background: #7aa7ff;
+    box-shadow: var(--shadow-soft);
+}
+
+.input-field {
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-accent-soft);
+    background: var(--color-bg-soft);
+    color: var(--color-text);
+    transition: var(--transition-fast);
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-soft);
+}
+
+.card {
+    background: var(--color-bg-soft);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-accent-soft);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-med);
+}
+
+.card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-strong);
+}
+
+.modal-content {
+    background: var(--color-bg-soft);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
+}
+/* -------------------------------------------------------
+                      END COMPONENTS
+------------------------------------------------------- */
+/* -------------------------------------------------------
+                      SEARCH + FILTER
+------------------------------------------------------- */
+.filter-item {
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-accent-soft);
+    transition: var(--transition-med);
+    cursor: pointer;
+}
+
+.filter-item:hover {
+    background: var(--color-accent-soft);
+    box-shadow: var(--shadow-soft);
+    transform: translateY(-2px);
+}
+
+.filter-item:has(.form-check-input:checked) {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-strong);
+}
+/* -------------------------------------------------------
+                    END SEARCH + FILTER
+------------------------------------------------------- */
+
+
+
+
+

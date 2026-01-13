@@ -44,14 +44,14 @@ $(function () {
     $('#listPosts').click(listPosts);
 
     /* Attach AJAX "loading" event listener*/
-    $(document).on({
-        ajaxStart: function () {
-            $('#loadingBox').show();
-        },
-        ajaxStop: function () {
-            $('#loadingBox').hide();
-        }
-    });
+    // $(document).on({
+    //     ajaxStart: function () {
+    //         $('#loadingBox').show();
+    //     },
+    //     ajaxStop: function () {
+    //         $('#loadingBox').hide();
+    //     }
+    // });
 
     showHomeView();
     showHideNavLinks();
@@ -75,9 +75,9 @@ function showError(msgText) {
     $('#errorBox').text(msgText).show();
 }
 
-function showInfo(msgText) {
-    $('#infoBox').text(msgText).show().delay(3000).fadeOut(800);
-}
+// function showInfo(msgText) {
+//     $('#infoBox').text(msgText).show().delay(3000).fadeOut(800);
+// }
 
 /* Choose what links to be seen when user is logged or not */
 function showHideNavLinks() {
@@ -126,7 +126,6 @@ function showLoginView() {
 function showRegisterView() {
     showView('viewRegister');
 }
-
 
 function showFoodCostView() {
     showView('viewFoodCost');
@@ -286,52 +285,8 @@ function listPosts() {
 
 }
 
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("modal-trigger")) {
-    const imgSrc = e.target.getAttribute("data-img");
-    const caption = e.target.getAttribute("data-caption") || "";
-
-    document.getElementById("modalImage").src = imgSrc;
-    document.getElementById("modalCaption").textContent = caption;
-
-    const modal = new bootstrap.Modal(document.getElementById("imageModal"));
-    modal.show();
-  }
-});
 
 
-function logout() {
-    auth.signOut() 
-    .then(() => { 
-        console.log("User logged out"); 
-    }) .catch(error => { 
-        console.error("Logout error:", error); 
-    });
-    showHideNavLinks();
-    showHomeView();
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-    const allCheckbox = document.getElementById("filterAll");
-    const otherCheckboxes = [
-        document.getElementById("filterExoplanets"),
-        document.getElementById("filterStars"),
-        document.getElementById("filterGalaxies"),
-        document.getElementById("filterNebulas")
-    ];
 
-    // When "All" is toggled → toggle all others
-    allCheckbox.addEventListener("change", () => {
-        const isChecked = allCheckbox.checked;
-        otherCheckboxes.forEach(cb => cb.checked = isChecked);
-    });
 
-    // When any other checkbox is changed → uncheck "All"
-    otherCheckboxes.forEach(cb => {
-        cb.addEventListener("change", () => {
-            if (!cb.checked) {
-                allCheckbox.checked = false;
-            }
-        });
-    });
-});

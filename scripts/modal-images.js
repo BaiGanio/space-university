@@ -2,11 +2,15 @@
  * Created by Republic Of Gamers on 7/20/2016.
  */
 
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("modal-trigger")) {
+    const imgSrc = e.target.getAttribute("data-img");
+    const caption = e.target.getAttribute("data-caption") || "";
 
-// Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0];
+    document.getElementById("modalImage").src = imgSrc;
+    document.getElementById("modalCaption").textContent = caption;
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+    const modal = new bootstrap.Modal(document.getElementById("imageModal"));
+    modal.show();
+  }
+});

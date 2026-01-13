@@ -32,6 +32,7 @@ function logout() {
     }) .catch(error => { 
         console.error("Logout error:", error); 
     });
+    document.body.classList.remove("logged-in");
     showHomeView();
 }
 // -----------------------------
@@ -60,6 +61,7 @@ function login() {
        });
 
     function loginSuccess(data, status) {
+        document.body.classList.add("logged-in");
         showHomeView();
         showInfo('Login successful');
     }

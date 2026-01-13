@@ -1,6 +1,112 @@
 /**
  * Created by Republic Of Gamers on 7/16/2016.
  */
+
+/* MAIN APP LOGIC */
+function startAppLogic() {
+
+    let userID = sessionStorage.getItem("username");
+    console.log("id" + userID);
+    $("#linkLogout").click(logoutUser);
+
+    if(userID){
+        $('#loginLnk').text("");
+        $("#linkLogin").hide();
+        let username = sessionStorage.getItem("username");
+        console.log("Welcome, " + username + "!");
+        $('#userMsg').text("Welcome, " + username + "!");
+        $("#loggedInUser").show();
+        $("#linkLogout").show();
+    }
+    else{
+        $('#loginLnk').text("Login");
+        $("#linkLogin").show();
+        $("#loggedInUser").hide();
+        $("#linkLogout").hide();
+    }
+
+    function logoutUser() {
+        $('#loginLnk').text("Login");
+        $("#linkLogin").show();
+        sessionStorage.clear();
+        $("#user").hide();
+        $("#linkLogout").hide();
+
+        $('#userMsg').text("");
+        showInfo("Logout successful.");
+
+        function showInfo(message) {
+            $('#infoBox').text(message);
+            $('#infoBox').show();
+            setTimeout(function () {
+                $('#infoBox').fadeOut();
+            }, 3000);
+        }
+
+    }
+};
+
+/* This function is loaded every time we refresh the page */
+$(function () {    
+    showHomeView();
+});
+function showView(viewID) {
+    /*
+     * Clear all views before that.
+     */
+    $('#main-page-content > section').hide();
+    $('#' + viewID).show();
+};
+function showHomeView() {
+    showView('viewHome');
+}
+function showLoginView() {
+    showView('viewLogin');
+}
+function showRegisterView() {
+    showView('viewRegister');
+}
+function showFoodCostView() {
+    showView('viewFoodCost');
+}
+function showAddGalaxyView() {
+    showView('viewAddGalaxy');
+}
+function showListGalaxiesView() {
+    showView('viewListGalaxies');
+}
+
+
+$(function () {
+
+    $('#linkHome').click(showHomeView);
+    $('#linkLogin').click(showLoginView);
+    $('#linkRegister').click(showRegisterView);
+   
+    $('#linkLogout').click(logout);
+    $('#linkFoodCost').click(showFoodCostView);
+    
+    $('#linkAddGalaxy').click(showAddGalaxyView);
+    $('#linkListGalaxies').click(showListGalaxiesView);
+    /* Note that by default HTML forms submit their data as HTTP GET request.
+     You should prevent this default action and replace it with JavaScript code.
+     Use e.preventDefault() as shown above.
+     Otherwise, the form will sometimes execute your JavaScript code,
+     sometimes will post its data as HTTP GET request.
+     */
+    $('#loginForm').submit(function (e) {
+        e.preventDefault();
+        login();
+    });
+    $('#registerForm').submit(function (e) {
+        e.preventDefault();
+        registerUser();
+    });
+    showHomeView();
+    // showHideNavLinks();
+});
+
+
 // -----------------------------
 // Създаваме глобален namespace:
 // -----------------------------

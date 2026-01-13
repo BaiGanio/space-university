@@ -94,6 +94,23 @@ body.cosmic-flare {
     --color-accent-strong: #d72638; /* Fiery Red */
 }
 
+/* Universal focus style for dark theme */
+.uac-create-wrapper input:focus,
+.uac-create-wrapper select:focus,
+.uac-create-wrapper textarea:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.8), 
+                0 0 12px rgba(100, 149, 237, 0.6);
+    border-color: cornflowerblue !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #fff;
+    transition: all 0.15s ease-in-out;
+}
+
+.uac-create-wrapper { 
+    max-width: 900px; background: #ffffff; border-radius: 12px; box-shadow: 0 0 18px rgba(0,0,0,0.15); } .uac-create-wrapper .form-label { font-weight: 600; color: #333; text-align: left; } .uac-create-wrapper h6 { color: #444; margin-bottom: 4px; }
+
+
 
 /* -------------------------------------------------------
                        END THEMES
@@ -230,6 +247,28 @@ small {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-strong);
 }
+
+.image-modal .modal-content {
+    background: black; /* или твоя cosmic/dark стил */
+    color: white;
+}
+
+.image-modal img {
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+}
+
+.terms-modal .modal-content {
+    background: var(--color-bg-soft) !important;
+    color: var(--color-text) !important;
+    font-size: 1.15rem;
+}
+
+.terms-modal .modal-header,
+.terms-modal .modal-footer {
+    border-color: var(--color-accent-soft) !important;
+}
+
 /* -------------------------------------------------------
                       END COMPONENTS
 ------------------------------------------------------- */

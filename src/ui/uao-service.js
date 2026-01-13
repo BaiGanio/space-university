@@ -67,7 +67,6 @@ function loadUniversalObjects() {
       });
 }
 
-
 function renderObjectCard(id, g) {
   const container = document.getElementById("uaoList");
   const card = document.createElement("div");
@@ -76,8 +75,16 @@ function renderObjectCard(id, g) {
   card.innerHTML = ` 
     <div class="card"> 
       <div class="card-image"> 
-        <img src="${g.imageUrl || 'images/satellite.png'}" class="img-fluid border border-3 border-secondary shadow-lg modal-trigger" data-img="${g.imageUrl}" data-caption="${g.name}" style="height: 340px; width: 100%; object-fit: cover; cursor: pointer;"> 
-       <a class="card-action" href="#" disabled onclick="likeGalaxy('${id}')"><i class="fa fa-star"> ${g.likes || 0} </i></a>
+       <!-- LEFT ACTION: TRASH (visible only when logged in) -->
+      
+        <img src="${g.imageUrl || 'images/satellite.png'}" class="img-fluid border border-3 border-secondary shadow-lg modal-trigger" data-img="${g.imageUrl}" data-caption="${g.name}" style="height: 340px; width: 100%; object-fit: cover; cursor: pointer;">
+        <a class="card-action requires-auth" 
+        id="trash"
+         href="#" 
+         onclick="deleteObject('${id}')">
+        <i class="fa fa-trash text-danger"> delete</i>
+      </a> 
+       <a class="card-action" id="star" href="#" disabled onclick="likeObject('${id}')"><i class="fa fa-star"> ${g.likes || 0} </i></a>
       <div class="card-body"> 
         <div class="card-heading">${g.name}</div> 
         <hr/>
@@ -103,7 +110,9 @@ function likeObject(id) {
     likedBy: firebase.firestore.FieldValue.arrayUnion(user.uid) 
   }); 
 }
-
+//-----------------------------
+//       START SEARCH UAOs
+//-----------------------------
 function searchUniversalObjects() {
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
   const container = document.getElementById("uaoList");
@@ -132,7 +141,9 @@ function searchUniversalObjects() {
       });
     });
 }
-
+//-----------------------------
+//       END SEARCH UAOs
+//-----------------------------
 //-----------------------------
 // START IMAGE URL LIVE PREVIEW
 //-----------------------------

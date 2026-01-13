@@ -24,8 +24,28 @@
 }
 
 /* FILTERS FOR THE SEARCH BAR */
+.search-filter-wrapper {
+    width: 50%;
+    margin: 0 auto;   /* центрира целия модул */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;        /* разстояние между search и filters */
+    text-align: center;
+}
+.filters-container { 
+    width: 100%; 
+    display: flex; justify-content: center; /* центрира филтрите */ 
+} 
+.filter-row { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; /* центрира чекбоксовете вътре */ 
+    gap: 20px; 
+    width: 100%; 
+}
+
 .filter-row .filter-item {
-    padding: 6px 14px;
+    /* padding: 6px 14px; */
     border-radius: 10px;
     border: 2px solid rgba(100, 149, 237, 0.4); /* cornflower border */
     transition: all 0.25s ease;

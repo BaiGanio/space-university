@@ -112,7 +112,6 @@
                     <div class="container ">
                         <div class="row justify-content-center align-items-center">
                             <div class="search-filter-wrapper">
-
                                 <div class="input-group search-container">
                                 <!-- Add Galaxy button (only for logged users) --> 
                                     <button 
@@ -126,47 +125,60 @@
                                         id="searchInput"
                                         class="form-control bg-dark text-white border-0 fw-bold search-xl-input"
                                         placeholder="(e.g.) Andromeda, M16, Messier 101"
-                                        oninput="searchGalaxies()">
-
+                                        oninput="searchUniversalObjects()">
                                     <button 
                                         class="btn btn-primary fw-bold px-4 search-xl-btn"
-                                        onclick="searchGalaxies()">
+                                        onclick="searchUniversalObjects()">
                                         Search
                                     </button>
+                                </div>                                
+                            </div>
+                            <!-- Filters -->
+                            <div class="mt-4 d-flex flex-wrap gap-4 fw-bold filter-row filters-container">
+
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterAll" checked>
+                                    <label class="form-check-label" for="filterAll">All</label>
                                 </div>
 
-                                <!--Filters-->
-                                <div class="mt-4 d-flex flex-wrap gap-4 fw-bold filter-row filters-container">
-                                    <div class="form-check filter-item">
-                                        <input class="form-check-input" type="checkbox" id="filterAll" checked>
-                                        <label class="form-check-label" for="filterAll">All</label>
-                                    </div>
-
-                                    <div class="form-check filter-item">
-                                        <input class="form-check-input" type="checkbox" id="filterExoplanets">
-                                        <label class="form-check-label" for="filterExoplanets">Exoplanets & Moons</label>
-                                    </div>
-
-                                    <div class="form-check filter-item">
-                                        <input class="form-check-input" type="checkbox" id="filterStars">
-                                        <label class="form-check-label" for="filterStars">Stars</label>
-                                    </div>
-
-                                    <div class="form-check filter-item">
-                                        <input class="form-check-input" type="checkbox" id="filterGalaxies">
-                                        <label class="form-check-label" for="filterGalaxies">Galaxies</label>
-                                    </div>
-
-                                    <div class="form-check filter-item">
-                                        <input class="form-check-input" type="checkbox" id="filterNebulas">
-                                        <label class="form-check-label" for="filterNebulas">Nebulas</label>
-                                    </div>
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterGalaxies" checked>
+                                    <label class="form-check-label" for="filterGalaxies">Galaxies</label>
                                 </div>
-                                
+
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterNebulae" checked>
+                                    <label class="form-check-label" for="filterNebulae">Nebulae</label>
+                                </div>
+
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterClusters" checked>
+                                    <label class="form-check-label" for="filterClusters">Clusters</label>
+                                </div>
+
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterStars" checked>
+                                    <label class="form-check-label" for="filterStars">Stars</label>
+                                </div>
+
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterExoplanets" checked>
+                                    <label class="form-check-label" for="filterExoplanets">Exoplanets</label>
+                                </div>
+
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterSolarSystem" checked>
+                                    <label class="form-check-label" for="filterSolarSystem">Solar System</label>
+                                </div>
+
+                                <div class="form-check filter-item">
+                                    <input class="form-check-input" type="checkbox" id="filterExotic" checked>
+                                    <label class="form-check-label" for="filterExotic">Exotic</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="galaxyList"></div>
+                    <div class="row" id="uaoList"></div>
                 </section>
                 <!-- END HOME PAGE CONTENT -->
 
@@ -300,51 +312,207 @@
                 <!-- END REGISTRATION CONTENT -->
 
                 <!-- START ADD GALAXY CONTENT -->
+                 <style>
+  
+/* Universal focus style for dark theme */
+.uac-create-wrapper input:focus,
+.uac-create-wrapper select:focus,
+.uac-create-wrapper textarea:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.8), 
+                0 0 12px rgba(100, 149, 237, 0.6);
+    border-color: cornflowerblue !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #fff;
+    transition: all 0.15s ease-in-out;
+}
+
+.uac-create-wrapper { 
+    max-width: 900px; background: #ffffff; border-radius: 12px; box-shadow: 0 0 18px rgba(0,0,0,0.15); } .uac-create-wrapper .form-label { font-weight: 600; color: #333; text-align: left; } .uac-create-wrapper h6 { color: #444; margin-bottom: 4px; }
+
+                 </style>
                 <section id="viewAddGalaxy">
-                            <form id="galaxyForm" onsubmit="event.preventDefault(); saveGalaxy();">
-                            <input id="galaxyName" placeholder="Galaxy Name" class="form-control mb-3">
-                            <input id="galaxyCatalogId" placeholder="Catalog ID (M31, NGC 1300)" class="form-control mb-3">
-                            <input id="galaxyType" placeholder="Type (Spiral, Elliptical...)" class="form-control mb-3">
-                            <textarea id="galaxyDescription" placeholder="Description" class="form-control mb-3"></textarea>
+                    <div class="uac-create-wrapper card p-4 mx-auto mt-4">
 
-                            <input id="nasaQuery" placeholder="NASA Search Query" class="form-control mb-3">
+    <h2 class="fw-bold mb-3 text-center guildof">Create Astronomical Object</h2>
 
-                            <button type="button" onclick="previewNasaImage()" class="btn btn-secondary mb-3">Fetch NASA Image</button>
+    <form id="uacForm" class="row g-3">
 
-                            <img id="nasaPreview" style="max-width: 300px; display: block; margin-bottom: 20px;">
+        <!-- LEFT COLUMN -->
+        <div class="col-md-6">
 
-                            <button type="submit" class="btn btn-primary">Save Galaxy</button>
-                            </form>
+            <div class="mb-3">
+                <label class="form-label">Name *</label>
+                <input type="text" id="uacName" class="form-control form-control-sm" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Aliases</label>
+                <input type="text" id="uacAliases" class="form-control form-control-sm">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Category *</label>
+                <select id="uacCategory" class="form-select form-select-sm" required>
+                    <option value="">Select...</option>
+                    <option value="galaxy">Galaxy</option>
+                    <option value="nebula">Nebula</option>
+                    <option value="open_cluster">Open Cluster</option>
+                    <option value="globular_cluster">Globular Cluster</option>
+                    <option value="star">Star</option>
+                    <option value="variable_star">Variable Star</option>
+                    <option value="exoplanet">Exoplanet</option>
+                    <option value="planet">Planet</option>
+                    <option value="moon">Moon</option>
+                    <option value="asteroid">Asteroid</option>
+                    <option value="comet">Comet</option>
+                    <option value="quasar">Quasar</option>
+                    <option value="AGN">AGN</option>
+                    <option value="supernova">Supernova</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Subcategory</label>
+                <input type="text" id="uacSubcategory" class="form-control form-control-sm">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description *</label>
+                <textarea id="uacDescription" class="form-control form-control-sm" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <textarea id="uacNotes" class="form-control form-control-sm" rows="2"></textarea>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-md-6">
+
+            <h6 class=" guildof ">Coordinates</h6>
+
+            <div class="row g-2 mb-3">
+                <div class="col-4">
+                    <label class="form-label">RA</label>
+                    <input type="text" id="uacRA" class="form-control form-control-sm">
+                </div>
+                <div class="col-4">
+                    <label class="form-label">DEC</label>
+                    <input type="text" id="uacDEC" class="form-control form-control-sm">
+                </div>
+                <div class="col-4">
+                    <label class="form-label">Epoch</label>
+                    <input type="text" id="uacEpoch" class="form-control form-control-sm" value="J2000">
+                </div>
+            </div>
+
+            <div class="row g-2 mb-3">
+                <div class="col-6">
+                    <label class="form-label">Distance</label>
+                    <input type="text" id="uacDistance" class="form-control form-control-sm">
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Magnitude</label>
+                    <input type="number" id="uacMagnitude" class="form-control form-control-sm">
+                </div>
+            </div>
+
+            <!-- STAR FIELDS -->
+            <div id="uacStarFields" class="d-none">
+                <h6 class="fw-bold">Star Properties</h6>
+                <div class="row g-2 mb-3">
+                    <div class="col-4">
+                        <label class="form-label">Spectral</label>
+                        <input type="text" id="uacSpectralType" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Temp (K)</label>
+                        <input type="number" id="uacTemperature" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Luminosity</label>
+                        <input type="number" id="uacLuminosity" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXOPLANET FIELDS -->
+            <div id="uacExoplanetFields" class="d-none">
+                <h6 class="fw-bold">Exoplanet Properties</h6>
+                <div class="row g-2 mb-3">
+                    <div class="col-4">
+                        <label class="form-label">Period</label>
+                        <input type="number" id="uacOrbitalPeriod" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Axis</label>
+                        <input type="number" id="uacSemiMajorAxis" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Ecc</label>
+                        <input type="number" step="0.001" id="uacEccentricity" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOLAR SYSTEM FIELDS -->
+            <div id="uacSolarSystemFields" class="d-none">
+                <h6 class="fw-bold">Solar System</h6>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label">Parent Body</label>
+                        <input type="text" id="uacParentBody" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Orbital Elements</label>
+                        <input type="text" id="uacOrbitalElements" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEEP SKY FIELDS -->
+            <div id="uacDeepSkyFields" class="d-none">
+                <h6 class="fw-bold">Deep Sky</h6>
+                <div class="row g-2 mb-3">
+                    <div class="col-4">
+                        <label class="form-label">Size Max</label>
+                        <input type="text" id="uacSizeMax" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Size Min</label>
+                        <input type="text" id="uacSizeMin" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Angle</label>
+                        <input type="number" id="uacPositionAngle" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Image URL</label>
+                <input type="text" id="uacImageUrl" class="form-control form-control-sm">
+            </div>
+
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="col-12 mt-2">
+            <button type="button" onclick="saveUniversalObject()" class="btn btn-primary w-100 btn-sm">
+                Save Object
+            </button>
+        </div>
+
+    </form>
+</div>
+
 
                 </section>
                 <!-- END ADD GALAXY CONTENT -->
                  
-                <style>
-                    .search-filter-wrapper {
-                        width: 66%;
-                        margin: 0 auto;   /* центрира целия модул */
-                        display: flex;
-                        flex-direction: column;
-                        gap: 10px;        /* разстояние между search и filters */
-                        text-align: center;
-                    }
-
-                    .search-container { 
-                        width: 100%; 
-                    } 
-                    .filters-container { 
-                        width: 100%; 
-                        display: flex; justify-content: center; /* центрира филтрите */ 
-                    } 
-                    .filter-row { 
-                        display: flex; 
-                        flex-wrap: wrap; 
-                        justify-content: center; /* центрира чекбоксовете вътре */ 
-                        gap: 20px; 
-                        width: 100%; 
-                    }
-
-                </style>
                 <!-- START LIST GALAXIES CONTENT -->
                 <section id="viewListGalaxies">
                     
@@ -418,26 +586,6 @@
                 </section>
                 <!-- END CREATE POST CONTENT -->
 
-                <!-- START JSON VIA AJAX CONTENT -->
-                <section id="json-via-ajax">
-                    <!--<p>-->
-                        <!--<a href="https://www.sanwebe.com/2013/01/40-css-buttons-from-codepen">custom buttons</a>-->
-                    <!--</p>-->
-                    <!--<button id="listUsers" class='cool_btn1 green'>-->
-                        <!--<h1 class='top'>126</h1>-->
-                        <!--<h2> <i>Total users</i></h2>-->
-                    <!--</button>-->
-                    <button id="listPosts" class='cool_btn1 teal'>
-                        <h1 class='top'>Log in first</h1>
-                        <h2> <i>Created posts</i></h2>
-                    </button>
-                    <div class="row" id="ajaxViaJsonPreview">
-                        <div id="usersHolder"></div>
-                        <div id="postsHolderRaw"></div>
-                    </div>
-
-                </section>
-                <!-- END JSON VIA AJAX CONTENT -->
 
                 <!-- START CREATE ARTICLE CONTENT -->
                 <section id="viewCreateArticle">
@@ -596,14 +744,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!--============================== CUSTOM SCRIPTS =================================-->
+    <script src="scripts/firebase-config.js"></script> 
     <script src="scripts/index.js"></script>
     <script src="scripts/side-navigation.js"></script>
     <script src="scripts/modal-images.js"></script>
     <script src="scripts/main-page-content.js"></script>
     <script src="scripts/food-cost.js"></script>  
-    <script src="scripts/firebase-config.js"></script> 
     <script src="scripts/auth.js"></script> 
     <script src="scripts/nasa.js"></script> 
     <script src="scripts/galaxies.js"></script>
+    <script src="src/helpers/firestoreImport.js"></script>
 </body>
 </html>

@@ -1,121 +1,136 @@
-async function saveGalaxy() {
-  const name = document.getElementById("galaxyName").value.trim();
-  const catalogId = document.getElementById("galaxyCatalogId").value.trim();
-  const type = document.getElementById("galaxyType").value.trim();
-  const description = document.getElementById("galaxyDescription").value.trim();
-  const nasaQuery = document.getElementById("nasaQuery").value.trim();
-  const nasaImageUrl = document.getElementById("nasaPreview").src || "";
+//-----------------------------
+//          START SAVE UAOs
+//-----------------------------
+async function saveUniversalObject() {
+    const name = document.getElementById("objectName").value.trim();
+    const category = document.getElementById("objectCategory").value.trim(); // galaxy, nebula, star, etc.
+    const subcategory = document.getElementById("objectSubcategory").value.trim();
+    const description = document.getElementById("objectDescription").value.trim();
+    const nasaQuery = document.getElementById("nasaQuery").value.trim();
+    const imageUrl = document.getElementById("nasaPreview").src || "";
 
-  if (!name || !description) {
-    alert("Name and description are required.");
-    return;
-  }
+    if (!name || !description) {
+        alert("Name and description are required.");
+        return;
+    }
 
-  const user = auth.currentUser;
-  if (!user) {
-    alert("You must be logged in to add a galaxy.");
-    return;
-  }
+    const user = auth.currentUser;
+    if (!user) {
+        alert("You must be logged in to add an object.");
+        return;
+    }
 
-  db.collection("galaxies").add({
-    name,
-    nameLower: name.toLowerCase(),
-    catalogId,
-    type,
-    description,
-    nasaQuery,
-    nasaImageUrl,
-    likes: 0,
-    createdBy: user.uid,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-  })
-  .then(() => {
-    alert("Galaxy saved!");
-    document.getElementById("galaxyForm").reset();
-    document.getElementById("nasaPreview").src = "";
-  })
-  .catch(err => {
-    console.error("Error saving galaxy:", err);
-  });
-}
-
-function loadGalaxies() {
-  const container = document.getElementById("galaxyList");
-  container.innerHTML = "";
-
-  db.collection("galaxies")
-    .orderBy("createdAt", "desc")
-    .limit(6)
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        renderGalaxyCard(doc.id, doc.data());
-      });
+    const obj = createUniversalAstronomicalObject({
+        name,
+        nameLower: name.toLowerCase(),
+        aliases: [],
+        category,
+        subcategory,
+        catalogSource: ["manual"],
+        description,
+        notes: "",
+        imageUrl,
+        tags: [],
+        createdBy: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
+
+    db.collection("uao").doc(obj.id).set(obj)
+        .then(() => {
+            alert("Object saved!");
+            document.getElementById("objectForm").reset();
+            document.getElementById("nasaPreview").src = "";
+        })
+        .catch(err => {
+            console.error("Error saving object:", err);
+        });
+}
+//-----------------------------
+//          END SAVE UAOs
+//-----------------------------
+//-----------------------------
+//     START LOAD/FETCH UAOs
+//-----------------------------
+function loadUniversalObjects() {
+    const container = document.getElementById("uaoList");
+    container.innerHTML = "";
+
+    db.collection("uao")
+      .orderBy("createdAt", "desc")
+      .limit(12)
+      .get()
+      .then(snapshot => {
+          snapshot.forEach(doc => {
+            renderObjectCard(doc.id, doc.data());
+          });
+      });
 }
 
-function renderGalaxyCard(id, g) {
-  const container = document.getElementById("galaxyList");
 
+function renderObjectCard(id, g) {
+  const container = document.getElementById("uaoList");
   const card = document.createElement("div");
+
   card.className = "col-md-4 g-3";
   card.innerHTML = ` 
     <div class="card"> 
       <div class="card-image"> 
-        <img src="${g.nasaImageUrl || 'images/satellite.png'}" class="img-fluid border border-3 border-secondary shadow-lg modal-trigger" data-img="${g.nasaImageUrl}" data-caption="${g.name}" style="height: 340px; width: 100%; object-fit: cover; cursor: pointer;"> 
+        <img src="${g.imageUrl || 'images/satellite.png'}" class="img-fluid border border-3 border-secondary shadow-lg modal-trigger" data-img="${g.imageUrl}" data-caption="${g.name}" style="height: 340px; width: 100%; object-fit: cover; cursor: pointer;"> 
        <a class="card-action" href="#" disabled onclick="likeGalaxy('${id}')"><i class="fa fa-star"> ${g.likes || 0} </i></a>
       <div class="card-body"> 
         <div class="card-heading">${g.name}</div> 
         <hr/>
         <div class="card-text">${g.type || "Unknown type"}</div> 
-        <div class="card-text">${g.catalogId || ""}</div> 
+        <div class="card-text">${g.category || ""}</div> 
   
-        <button data-img="${g.nasaImageUrl}" data-caption="${g.description}" class="btn btn-primary modal-trigger"> more... </button> 
+        <button data-img="${g.imageUrl}" data-caption="${g.description}" class="btn btn-primary modal-trigger"> more... </button> 
       </div> 
     </div> `;
 
   container.appendChild(card);
 }
+//-----------------------------
+//     END LOAD/FETCH UAOs
+//-----------------------------
 
-
-function likeGalaxy(id) { 
+function likeObject(id) { 
   const user = auth.currentUser; 
   if (!user) return; 
-  const ref = db.collection("galaxies").doc(id); 
+  const ref = db.collection("uao").doc(id); 
   ref.update({ 
-    likes: firebase.firestore.FieldValue.increment(1) 
+    likes: firebase.firestore.FieldValue.increment(1),
+    likedBy: firebase.firestore.FieldValue.arrayUnion(user.uid) 
   }); 
 }
 
-function searchGalaxies() {
+function searchUniversalObjects() {
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
-  const container = document.getElementById("galaxyList");
+  const container = document.getElementById("uaoList");
   container.innerHTML = "";
 
-  // If empty → load latest 6
   if (query.length === 0) {
-    loadGalaxies();
+    loadUniversalObjects();
     return;
   }
 
-  // Firestore search by name
-  db.collection("galaxies")
+  db.collection("uao")
     .orderBy("nameLower")
     .startAt(query)
     .endAt(query + "\uf8ff")
-    .limit(10)
+    .limit(20)
     .get()
     .then(snapshot => {
       if (snapshot.empty) {
-        container.innerHTML = `<p class="text-center text-muted fs-4">No galaxies found.</p>`;
-        return;
+          container.innerHTML = `<p class="text-center text-muted fs-4">No objects found.</p>`;
+          return;
       }
 
       snapshot.forEach(doc => {
         const g = doc.data();
-        renderGalaxyCard(doc.id, g);
+        renderObjectCard(doc.id, g);
       });
     });
 }
+
 

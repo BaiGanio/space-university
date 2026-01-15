@@ -105,23 +105,14 @@ $(function () {
     // showHideNavLinks();
 });
 
-
-// -----------------------------
-// Създаваме глобален namespace:
-// -----------------------------
-const Controllers = {}; // 
-/*  
-    Единен DOMContentLoaded блок (централен entry point)
-*/
+const Controllers = {};
 document.addEventListener("DOMContentLoaded", () => {
-
     Controllers.AjaxInterceptor.init();
     Controllers.TermsModal.init();
     Controllers.Filters.init();
     Controllers.Search.init();
-    Controllers.AuthUI.init(); // ако имаш auth логика
+    Controllers.AuthUI.init();
     Controllers.Theme.init();
-
 });
 
 // -----------------------------

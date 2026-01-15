@@ -67,7 +67,7 @@ function loadUniversalObjects() {
             const data = doc.data();
 
             renderObjectCard(doc.id, data);
-            items.push({ imageUrl: safeImageUrl(data.imageUrl), title: data.name || "Untitled", description: data.description || "" });
+            items.push({ imageUrl: safeImageUrl(data.imageUrl), title: data.name || "Untitled", description: data.description || "", category: data.category || "" });
           });
           renderCarousel(items);
       });
@@ -217,43 +217,45 @@ function renderCarousel(items) {
 
   items.forEach((item, index) => {
     indicators += `
-      <button type="button" data-bs-target="#carouselContainer" data-bs-slide-to="${index}"
-        class="${index === 0 ? 'active' : ''}" aria-current="${index === 0 ? 'true' : 'false'}"></button>
+      <button 
+        type="button" 
+        data-bs-target="#carouselContainer" 
+        data-bs-slide-to="${index}"
+        class="${index === 0 ? 'active' : ''}" 
+        aria-current="${index === 0 ? 'true' : 'false'}">
+      </button>
     `;
 
     slides += `
       <div class="carousel-item ${index === 0 ? 'active' : ''}">
-        <img src="${item.imageUrl}" class="d-block w-100 carousel-img">
+        <img src="${item.imageUrl}" class="carousel-img">
 
-        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+        <div class="carousel-caption">
           <h5>${item.title || "Untitled"}</h5>
-          <h4>${item.description || ""}</h4>
+          <!-- <h4 class=cormorant>${item.description.split(/[.!?]/)[0] || ""}</h4> -->
         </div>
       </div>
     `;
   });
-
   document.getElementById("carouselContainer").innerHTML = `
-    <div id="carouselContainer" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3500">
-      
-      <div class="carousel-indicators">
-        ${indicators}
-      </div>
-
-      <div class="carousel-inner">
-        ${slides}
-      </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselContainer" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselContainer" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-
+    <div class="carousel-indicators">
+      ${indicators}
     </div>
+
+    <div class="carousel-inner">
+      ${slides}
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselContainer" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselContainer" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
   `;
+  const el = document.querySelector('#carouselContainer'); 
+  new bootstrap.Carousel(el);
 }
 
 

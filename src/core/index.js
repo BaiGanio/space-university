@@ -279,6 +279,18 @@ Controllers.TermsModal = {
         });
     }
 };
+// Controllers.SidebarUI = {
+//     init() {
+//         const aside = document.getElementById("asidebar-menu"); 
+//         const btn = document.getElementById("collapseAside"); 
+//         btn.addEventListener("click", () => { 
+//             aside.classList.toggle("collapsed"); 
+//             btn.textContent = aside.classList.contains("collapsed") ? "⮞" : "⮜"; 
+//         });
+//         this.loadSidebar();
+//     },
+//   loadSidebar() { fetch("components/sidebar.html") .then(r => r.text()) .then(html => { document.getElementById("sidebar").innerHTML = html; initSidebarCollapse(); }); }
+// };
 
 Controllers.AuthUI = {
     init() {

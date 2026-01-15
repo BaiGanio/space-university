@@ -223,32 +223,52 @@ body.black .carousel-control-prev-icon,
 body.black .carousel-control-next-icon {
   filter: invert(1);
 }
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) brightness(200%); border-radius: 50%; padding: 12px; box-shadow: 0 0 12px #00eaff, 0 0 24px #00eaff;
+}
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
   margin-top: -10px; /* lifts the carousel higher */
 }
 .carousel-img { 
-    height: 610px; object-fit: cover; }
+    height: 680px; object-fit: contain; }
 
 #carouselContainer {
   border: 2px solid transparent;
   border-image: linear-gradient(45deg, #6a00ff, #00d4ff) 1;
 }
 .carousel-caption h5 {
-  font-size: 1.6rem;
-  font-weight: 600;
-font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
 }
-
-.carousel-caption h5 {
-  max-height: 60px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Default (dark theme) */ 
+.carousel-caption h3, 
+.carousel-caption h4, 
+.carousel-caption h5,
+.carousel-caption p { 
+    color: #fff !important; text-shadow: 0 0 6px rgba(0,0,0,0.7);
+} 
+    /* Light theme override */ 
+body.theme-light .carousel-caption h3, 
+body.theme-light .carousel-caption h4, 
+body.theme-light .carousel-caption p { 
+    color: #000 !important; text-shadow: 0 0 6px rgba(255,255,255,0.7); 
 }
 .carousel-caption {
-  bottom: 30px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    padding: 40px 40px;
+    text-align: center; /* or center if you prefer */
+    bottom: 0; /* stick to bottom */
+    /* background: rgba(0,0,0,0.01);  */
+    backdrop-filter: blur(1px);
 }
+
 .carousel-item img {
   transition: transform 8s ease;
 }
@@ -256,26 +276,6 @@ font-family: 'Orbitron', sans-serif;
     animation: zoomIn 8s ease forwards;
 }
 @keyframes zoomIn { from { transform: scale(1); } to { transform: scale(1.25); } }
-body.dark .carousel-caption,
-body.black .carousel-caption {
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(4px);
-  border-radius: 8px;
-}
-#firebaseCarousel .carousel-inner {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-#carouselContainer { box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  filter: invert(1) brightness(200%);
-  border-radius: 50%;
-  padding: 12px;
-  box-shadow: 0 0 12px #00eaff, 0 0 24px #00eaff;
-}
 
 /* -------------------------------------------------------
                 END CAROUSEL

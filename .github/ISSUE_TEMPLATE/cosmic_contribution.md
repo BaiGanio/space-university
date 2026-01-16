@@ -1,12 +1,12 @@
 # 🌌 Cosmic Origins Contribution Template
 
 **Title:**  
-<!-- Write a short, clear summary of your idea here -->
+_Write a short, clear summary of your idea._
 
 ---
 
 ## 🪐 What part of Cosmic Origins does this relate to?
-<!-- Select one or more by keeping the lines you want -->
+_Select one or more:_
 - Worldbuilding  
 - Lore expansion  
 - Scientific accuracy  
@@ -16,38 +16,47 @@
 - Bug report  
 - Other (explain below)
 
+**Notes:**  
+_Write here if you selected "Other"._
+
 ---
 
 ## 🌠 Summary of the Contribution
-<!-- Describe your idea, fix, or improvement in 2–3 sentences -->
+_Describe your idea, fix, or improvement in 2–3 sentences._
+
 Write here:
 
 ---
 
 ## 🔭 Why is this valuable?
-<!-- Explain the motivation and what problem this solves -->
+_Explain the motivation and what problem this solves._
+
 Write here:
 
 ---
 
 ## 🌙 Proposed Details
-<!-- Add any specifics: concepts, diagrams, pseudocode, story elements, UI sketches, etc. -->
+_Add any specifics: concepts, diagrams, pseudocode, story elements, UI sketches, data models, etc._
+
 Write here:
 
 ---
 
 ## ☄️ Expected Impact
-<!-- How does this improve the project? (performance, clarity, UX, lore depth, realism, maintainability) -->
+_How does this improve the project? (performance, clarity, UX, lore depth, realism, maintainability)_
+
 Write here:
 
 ---
 
 ## 🧪 Optional: How could this be tested or validated?
-<!-- Unit tests, scenarios, acceptance criteria, etc. -->
+_Unit tests, scenarios, acceptance criteria, etc._
+
 Write here:
 
 ---
 
 ## ✨ Additional Notes
-<!-- Anything else maintainers should know -->
+_Anything else maintainers should know._
+
 Write here:
